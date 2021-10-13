@@ -23,8 +23,8 @@ namesTab <- c(paste0("B",c("m2019","s2019","DA2019")),
 tabPrmse <- tabPbias <- matrix(NA,9,3,dimnames = list(namesTab,tiles))
 tabRmse <- tabBias <- matrix(NA,9,3,dimnames = list(namesTab,tiles))
 
-p_rmse <- function(sim,obs) sqrt( mean( (obs-sim)^2) ) / ( max(obs)-min(obs) )*100
-p_bias <- function(sim,obs) mean( (obs-sim))/(max(obs)-min(obs) )*100
+p_rmse <- function(obs,sim) sqrt( mean( (obs-sim)^2) ) / ( max(obs)-min(obs) )*100
+p_bias <- function(obs,sim) mean( (obs-sim))/(max(obs)-min(obs) )*100
 # msex <- function(sim,obs)  mean( (sim-obs)^2)
 # rmsex <- function(sim,obs) sqrt( mean( (sim-obs)^2) )
 # biasx <- function(sim,obs) mean( (sim-obs))
@@ -48,47 +48,47 @@ for(i in 1:length(tiles)){
   points(data2019res$Bm2019,data2019res$G.mea,col=4,pch=20)
   abline(0,1)
   
-  tabPrmse[1,i] <- p_rmse(data2019res$Bm2019,data2019res$G.mea)
-  tabPrmse[2,i] <- p_rmse(data2019res$Bs2019,data2019res$G.mea)
-  tabPrmse[3,i] <- p_rmse(data2019res$BDA2019,data2019res$G.mea)
-  tabPbias[1,i] <- p_bias(data2019res$Bm2019,data2019res$G.mea)
-  tabPbias[2,i] <- p_bias(data2019res$Bs2019,data2019res$G.mea)
-  tabPbias[3,i] <- p_bias(data2019res$BDA2019,data2019res$G.mea)
+  tabPrmse[1,i] <- p_rmse(data2019res$G.mea,data2019res$Bm2019)
+  tabPrmse[2,i] <- p_rmse(data2019res$G.mea,data2019res$Bs2019)
+  tabPrmse[3,i] <- p_rmse(data2019res$G.mea,data2019res$BDA2019)
+  tabPbias[1,i] <- p_bias(data2019res$G.mea,data2019res$Bm2019)
+  tabPbias[2,i] <- p_bias(data2019res$G.mea,data2019res$Bs2019)
+  tabPbias[3,i] <- p_bias(data2019res$G.mea,data2019res$BDA2019)
   
-  tabRmse[1,i] <- rmse(data2019res$Bm2019,data2019res$G.mea)
-  tabRmse[2,i] <- rmse(data2019res$Bs2019,data2019res$G.mea)
-  tabRmse[3,i] <- rmse(data2019res$BDA2019,data2019res$G.mea)
-  tabBias[1,i] <- bias(data2019res$Bm2019,data2019res$G.mea)
-  tabBias[2,i] <- bias(data2019res$Bs2019,data2019res$G.mea)
-  tabBias[3,i] <- bias(data2019res$BDA2019,data2019res$G.mea)
+  tabRmse[1,i] <- rmse(data2019res$G.mea,data2019res$Bm2019)
+  tabRmse[2,i] <- rmse(data2019res$G.mea,data2019res$Bs2019)
+  tabRmse[3,i] <- rmse(data2019res$G.mea,data2019res$BDA2019)
+  tabBias[1,i] <- bias(data2019res$G.mea,data2019res$Bm2019)
+  tabBias[2,i] <- bias(data2019res$G.mea,data2019res$Bs2019)
+  tabBias[3,i] <- bias(data2019res$G.mea,data2019res$BDA2019)
 
-  tabPrmse[4,i] <- p_rmse(data2019res$Hm2019,data2019res$H.mea/10)
-  tabPrmse[5,i] <- p_rmse(data2019res$Hs2019,data2019res$H.mea/10)
-  tabPrmse[6,i] <- p_rmse(data2019res$HDA2019,data2019res$H.mea/10)
-  tabPbias[4,i] <- p_bias(data2019res$Hm2019,data2019res$H.mea/10)
-  tabPbias[5,i] <- p_bias(data2019res$Hs2019,data2019res$H.mea/10)
-  tabPbias[6,i] <- p_bias(data2019res$HDA2019,data2019res$H.mea/10)
+  tabPrmse[4,i] <- p_rmse(data2019res$H.mea/10,data2019res$Hm2019)
+  tabPrmse[5,i] <- p_rmse(data2019res$H.mea/10,data2019res$Hs2019)
+  tabPrmse[6,i] <- p_rmse(data2019res$H.mea/10,data2019res$HDA2019)
+  tabPbias[4,i] <- p_bias(data2019res$H.mea/10,data2019res$Hm2019)
+  tabPbias[5,i] <- p_bias(data2019res$H.mea/10,data2019res$Hs2019)
+  tabPbias[6,i] <- p_bias(data2019res$H.mea/10,data2019res$HDA2019)
   
-  tabRmse[4,i] <- rmse(data2019res$Hm2019,data2019res$H.mea/10)
-  tabRmse[5,i] <- rmse(data2019res$Hs2019,data2019res$H.mea/10)
-  tabRmse[6,i] <- rmse(data2019res$HDA2019,data2019res$H.mea/10)
-  tabBias[4,i] <- bias(data2019res$Hm2019,data2019res$H.mea/10)
-  tabBias[5,i] <- bias(data2019res$Hs2019,data2019res$H.mea/10)
-  tabBias[6,i] <- bias(data2019res$HDA2019,data2019res$H.mea/10)
+  tabRmse[4,i] <- rmse(data2019res$H.mea/10,data2019res$Hm2019)
+  tabRmse[5,i] <- rmse(data2019res$H.mea/10,data2019res$Hs2019)
+  tabRmse[6,i] <- rmse(data2019res$H.mea/10,data2019res$HDA2019)
+  tabBias[4,i] <- bias(data2019res$H.mea/10,data2019res$Hm2019)
+  tabBias[5,i] <- bias(data2019res$H.mea/10,data2019res$Hs2019)
+  tabBias[6,i] <- bias(data2019res$H.mea/10,data2019res$HDA2019)
   
-  tabPrmse[7,i] <- p_rmse(data2019res$Dm2019,data2019res$D.mea)
-  tabPrmse[8,i] <- p_rmse(data2019res$Ds2019,data2019res$D.mea)
-  tabPrmse[9,i] <- p_rmse(data2019res$DDA2019,data2019res$D.mea)
-  tabPbias[7,i] <- p_bias(data2019res$Dm2019,data2019res$D.mea)
-  tabPbias[8,i] <- p_bias(data2019res$Ds2019,data2019res$D.mea)
-  tabPbias[9,i] <- p_bias(data2019res$DDA2019,data2019res$D.mea)
+  tabPrmse[7,i] <- p_rmse(data2019res$D.mea,data2019res$Dm2019)
+  tabPrmse[8,i] <- p_rmse(data2019res$D.mea,data2019res$Ds2019)
+  tabPrmse[9,i] <- p_rmse(data2019res$D.mea,data2019res$DDA2019)
+  tabPbias[7,i] <- p_bias(data2019res$D.mea,data2019res$Dm2019)
+  tabPbias[8,i] <- p_bias(data2019res$D.mea,data2019res$Ds2019)
+  tabPbias[9,i] <- p_bias(data2019res$D.mea,data2019res$DDA2019)
   
-  tabRmse[7,i] <- rmse(data2019res$Dm2019,data2019res$D.mea)
-  tabRmse[8,i] <- rmse(data2019res$Ds2019,data2019res$D.mea)
-  tabRmse[9,i] <- rmse(data2019res$DDA2019,data2019res$D.mea)
-  tabBias[7,i] <- bias(data2019res$Dm2019,data2019res$D.mea)
-  tabBias[8,i] <- bias(data2019res$Ds2019,data2019res$D.mea)
-  tabBias[9,i] <- bias(data2019res$DDA2019,data2019res$D.mea)
+  tabRmse[7,i] <- rmse(data2019res$D.mea,data2019res$Dm2019)
+  tabRmse[8,i] <- rmse(data2019res$D.mea,data2019res$Ds2019)
+  tabRmse[9,i] <- rmse(data2019res$D.mea,data2019res$DDA2019)
+  tabBias[7,i] <- bias(data2019res$D.mea,data2019res$Dm2019)
+  tabBias[8,i] <- bias(data2019res$D.mea,data2019res$Ds2019)
+  tabBias[9,i] <- bias(data2019res$D.mea,data2019res$DDA2019)
 }
 
 write.csv(t(rbind(tabPrmse,tabPbias)),file="~/research/assessCarbon/tab1_a.csv")
@@ -224,12 +224,12 @@ figRes1a <- pRMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 figRes1b <- RMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-figRes1c <- MSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
+figRes1c <- MSE + facet_grid(rows = vars(variable), cols = vars(Tile),scales = "free_y") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 figRes1c
 
-resFig1 <- figRes1c#ggarrange(figRes1a,figRes1b)
-ggsave(resFig1,filename = paste0(pathX,"/figures/resFig1.png"),device = "png")
+# resFig1 <- figRes1c#ggarrange(figRes1a,figRes1b)
+# ggsave(resFig1,filename = paste0(pathX,"/figures/resFig1.png"),device = "png")
 ggsave(figRes1a,filename = paste0(pathX,"/figures/resFig1pRMSE.png"),device = "png")
 ggsave(figRes1b,filename = paste0(pathX,"/figures/resFig1rmse.png"),device = "png")
 ggsave(figRes1c,filename = paste0(pathX,"/figures/resFig1mse.png"),device = "png")
@@ -416,7 +416,7 @@ for(i in 1:length(tiles)){
   tileX <- tiles[i]
   pathLap <- paste0("C:/Users/checcomi/Documents/research/assessCarbon/results/",tileX,"/rasters/")
   pathCSC <- paste0("/scratch/project_2000994/PREBASruns/assessCarbon/rasters/Finland/AC_training_FI_",tileX,"/outRast/init2016/")
-  pathX <- pathSC
+  pathX <- pathCSC
   load(paste0(pathX,"/mapsD.rdata"))
   mapX[[tileX]] <- mapD
 }
