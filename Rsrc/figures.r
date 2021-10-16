@@ -36,59 +36,58 @@ pRMSE <- list()
 nSample <- 100000
 colX <- c("#0E95A5","#28B209","#DFB021","#ff8533")
 
-
+load(paste0(pathX,"dataRes2019.rdata"))
 for(i in 1:length(tiles)){
   tileX <- tiles[i]
   #####Figure 1 reseults 
-  load(paste0(pathX,"data2019res_",tileX,".rdata"))
-  data2019res
-  plot(data2019res$G.est,data2019res$G.mea)
-  points(data2019res$BDA2019,data2019res$G.mea,col=2,pch=20)
-  points(data2019res$Bs2019,data2019res$G.mea,col=3,pch=20)
-  points(data2019res$Bm2019,data2019res$G.mea,col=4,pch=20)
+  # load(paste0(pathX,"data2019res_",tileX,".rdata"))
+  data2019res <- dataRes2019[Tile==tileX]
+  plot(data2019res$Bs2019,data2019res$G)
+  points(data2019res$Bda2019,data2019res$G,col=2,pch=20)
+  points(data2019res$Bm2019,data2019res$G,col=3,pch=20)
   abline(0,1)
   
-  tabPrmse[1,i] <- p_rmse(data2019res$G.mea,data2019res$Bm2019)
-  tabPrmse[2,i] <- p_rmse(data2019res$G.mea,data2019res$Bs2019)
-  tabPrmse[3,i] <- p_rmse(data2019res$G.mea,data2019res$BDA2019)
-  tabPbias[1,i] <- p_bias(data2019res$G.mea,data2019res$Bm2019)
-  tabPbias[2,i] <- p_bias(data2019res$G.mea,data2019res$Bs2019)
-  tabPbias[3,i] <- p_bias(data2019res$G.mea,data2019res$BDA2019)
+  tabPrmse[1,i] <- p_rmse(data2019res$G,data2019res$Bm2019)
+  tabPrmse[2,i] <- p_rmse(data2019res$G,data2019res$Bs2019)
+  tabPrmse[3,i] <- p_rmse(data2019res$G,data2019res$Bda2019)
+  tabPbias[1,i] <- p_bias(data2019res$G,data2019res$Bm2019)
+  tabPbias[2,i] <- p_bias(data2019res$G,data2019res$Bs2019)
+  tabPbias[3,i] <- p_bias(data2019res$G,data2019res$Bda2019)
   
-  tabRmse[1,i] <- rmse(data2019res$G.mea,data2019res$Bm2019)
-  tabRmse[2,i] <- rmse(data2019res$G.mea,data2019res$Bs2019)
-  tabRmse[3,i] <- rmse(data2019res$G.mea,data2019res$BDA2019)
-  tabBias[1,i] <- bias(data2019res$G.mea,data2019res$Bm2019)
-  tabBias[2,i] <- bias(data2019res$G.mea,data2019res$Bs2019)
-  tabBias[3,i] <- bias(data2019res$G.mea,data2019res$BDA2019)
+  tabRmse[1,i] <- rmse(data2019res$G,data2019res$Bm2019)
+  tabRmse[2,i] <- rmse(data2019res$G,data2019res$Bs2019)
+  tabRmse[3,i] <- rmse(data2019res$G,data2019res$Bda2019)
+  tabBias[1,i] <- bias(data2019res$G,data2019res$Bm2019)
+  tabBias[2,i] <- bias(data2019res$G,data2019res$Bs2019)
+  tabBias[3,i] <- bias(data2019res$G,data2019res$Bda2019)
 
-  tabPrmse[4,i] <- p_rmse(data2019res$H.mea/10,data2019res$Hm2019)
-  tabPrmse[5,i] <- p_rmse(data2019res$H.mea/10,data2019res$Hs2019)
-  tabPrmse[6,i] <- p_rmse(data2019res$H.mea/10,data2019res$HDA2019)
-  tabPbias[4,i] <- p_bias(data2019res$H.mea/10,data2019res$Hm2019)
-  tabPbias[5,i] <- p_bias(data2019res$H.mea/10,data2019res$Hs2019)
-  tabPbias[6,i] <- p_bias(data2019res$H.mea/10,data2019res$HDA2019)
+  tabPrmse[4,i] <- p_rmse(data2019res$H,data2019res$Hm2019)
+  tabPrmse[5,i] <- p_rmse(data2019res$H,data2019res$Hs2019)
+  tabPrmse[6,i] <- p_rmse(data2019res$H,data2019res$Hda2019)
+  tabPbias[4,i] <- p_bias(data2019res$H,data2019res$Hm2019)
+  tabPbias[5,i] <- p_bias(data2019res$H,data2019res$Hs2019)
+  tabPbias[6,i] <- p_bias(data2019res$H,data2019res$Hda2019)
   
-  tabRmse[4,i] <- rmse(data2019res$H.mea/10,data2019res$Hm2019)
-  tabRmse[5,i] <- rmse(data2019res$H.mea/10,data2019res$Hs2019)
-  tabRmse[6,i] <- rmse(data2019res$H.mea/10,data2019res$HDA2019)
-  tabBias[4,i] <- bias(data2019res$H.mea/10,data2019res$Hm2019)
-  tabBias[5,i] <- bias(data2019res$H.mea/10,data2019res$Hs2019)
-  tabBias[6,i] <- bias(data2019res$H.mea/10,data2019res$HDA2019)
+  tabRmse[4,i] <- rmse(data2019res$H,data2019res$Hm2019)
+  tabRmse[5,i] <- rmse(data2019res$H,data2019res$Hs2019)
+  tabRmse[6,i] <- rmse(data2019res$H,data2019res$Hda2019)
+  tabBias[4,i] <- bias(data2019res$H,data2019res$Hm2019)
+  tabBias[5,i] <- bias(data2019res$H,data2019res$Hs2019)
+  tabBias[6,i] <- bias(data2019res$H,data2019res$Hda2019)
   
-  tabPrmse[7,i] <- p_rmse(data2019res$D.mea,data2019res$Dm2019)
-  tabPrmse[8,i] <- p_rmse(data2019res$D.mea,data2019res$Ds2019)
-  tabPrmse[9,i] <- p_rmse(data2019res$D.mea,data2019res$DDA2019)
-  tabPbias[7,i] <- p_bias(data2019res$D.mea,data2019res$Dm2019)
-  tabPbias[8,i] <- p_bias(data2019res$D.mea,data2019res$Ds2019)
-  tabPbias[9,i] <- p_bias(data2019res$D.mea,data2019res$DDA2019)
+  tabPrmse[7,i] <- p_rmse(data2019res$D,data2019res$Dm2019)
+  tabPrmse[8,i] <- p_rmse(data2019res$D,data2019res$Ds2019)
+  tabPrmse[9,i] <- p_rmse(data2019res$D,data2019res$Dda2019)
+  tabPbias[7,i] <- p_bias(data2019res$D,data2019res$Dm2019)
+  tabPbias[8,i] <- p_bias(data2019res$D,data2019res$Ds2019)
+  tabPbias[9,i] <- p_bias(data2019res$D,data2019res$Dda2019)
   
-  tabRmse[7,i] <- rmse(data2019res$D.mea,data2019res$Dm2019)
-  tabRmse[8,i] <- rmse(data2019res$D.mea,data2019res$Ds2019)
-  tabRmse[9,i] <- rmse(data2019res$D.mea,data2019res$DDA2019)
-  tabBias[7,i] <- bias(data2019res$D.mea,data2019res$Dm2019)
-  tabBias[8,i] <- bias(data2019res$D.mea,data2019res$Ds2019)
-  tabBias[9,i] <- bias(data2019res$D.mea,data2019res$DDA2019)
+  tabRmse[7,i] <- rmse(data2019res$D,data2019res$Dm2019)
+  tabRmse[8,i] <- rmse(data2019res$D,data2019res$Ds2019)
+  tabRmse[9,i] <- rmse(data2019res$D,data2019res$Dda2019)
+  tabBias[7,i] <- bias(data2019res$D,data2019res$Dm2019)
+  tabBias[8,i] <- bias(data2019res$D,data2019res$Ds2019)
+  tabBias[9,i] <- bias(data2019res$D,data2019res$Dda2019)
 }
 
 write.csv(t(rbind(tabPrmse,tabPbias)),file="~/research/assessCarbon/tab1_a.csv")
@@ -96,49 +95,55 @@ write.csv(t(rbind(tabRmse,tabBias)),file="~/research/assessCarbon/tab1_b.csv")
 
 for(i in 1:length(tiles)){
   tileX <- tiles[i]
+  data2019res <- dataRes2019[Tile==tileX]
   
   #####Figure 1 reseults 
-  load(paste0(pathX,"data2019res_",tileX,".rdata"))
-  data2019res
-
-  MSEs <- data.table(value=as.numeric(unlist(MSEdec("B_est", data2019res$G.est,data2019res$G.mea,method=1))[2:5]),
-                     run="est",variable="B",components=c("sb","sdsd","lc","mse"),
-                     rangeObs = max(data2019res$G.mea,na.rm=T)-min(data2019res$G.mea,na.rm=T))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("B", data2019res$Bm2019,data2019res$G.mea,method=1))[2:5]),
-                                run="m2019",variable="B",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$G.mea,na.rm=T)-min(data2019res$G.mea,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("B", data2019res$Bs2019,data2019res$G.mea,method=1))[2:5]),
-                                run="s2019",variable="B",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$G.mea,na.rm=T)-min(data2019res$G.mea,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("B", data2019res$BDA2019,data2019res$G.mea,method=1))[2:5]),
-                                run="DA2019",variable="B",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$G.mea,na.rm=T)-min(data2019res$G.mea,na.rm=T)))
-
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("D", data2019res$D.est,data2019res$D.mea,method=1))[2:5]),
-                                run="est",variable="D",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$D.mea,na.rm=T)-min(data2019res$D.mea,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("D", data2019res$Dm2019,data2019res$D.mea,method=1))[2:5]),
-                                run="m2019",variable="D",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$D.mea,na.rm=T)-min(data2019res$D.mea,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("D", data2019res$Ds2019,data2019res$D.mea,method=1))[2:5]),
-                                run="s2019",variable="D",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$D.mea,na.rm=T)-min(data2019res$D.mea,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("D", data2019res$DDA2019,data2019res$D.mea,method=1))[2:5]),
-                                run="DA2019",variable="D",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$D.mea,na.rm=T)-min(data2019res$D.mea,na.rm=T)))
+  # load(paste0(pathX,"data2019res_",tileX,".rdata"))
   
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("H", data2019res$H.est/10,data2019res$H.mea/10,method=1))[2:5]),
-                                run="est",variable="H",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$H.mea/10,na.rm=T)-min(data2019res$H.mea/10,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("H", data2019res$Hm2019,data2019res$H.mea/10,method=1))[2:5]),
+  # MSEs <- data.table(value=as.numeric(unlist(MSEdec("B_est", data2019res$G.est,data2019res$G.mea,method=1))[2:5]),
+  #                    run="est",variable="B",components=c("sb","sdsd","lc","mse"),
+  #                    rangeObs = max(data2019res$G.mea,na.rm=T)-min(data2019res$G.mea,na.rm=T))
+  nas <- intersect(which(!is.na(data2019res$Bm2019)),which(!is.na(data2019res$G)))
+  nas <- intersect(nas,which(!is.na(data2019res$Bs2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$Bda2019)))
+  MSEs <- data.table(value=as.numeric(unlist(MSEdec("B", data2019res$Bm2019[nas],
+                                 data2019res$G[nas],method=1))[2:5]),
+                                run="m2019",variable="B",components=c("sb","sdsd","lc","mse"),
+                                rangeObs = max(data2019res$G,na.rm=T)-min(data2019res$G,na.rm=T))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("B",
+                                data2019res$Bs2019[nas],data2019res$G[nas],method=1))[2:5]),
+                                run="s2019",variable="B",components=c("sb","sdsd","lc","mse"),
+                                rangeObs = max(data2019res$G,na.rm=T)-min(data2019res$G,na.rm=T)))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("B", data2019res$Bda2019[nas],
+                                 data2019res$G[nas],method=1))[2:5]),
+                                run="DA2019",variable="B",components=c("sb","sdsd","lc","mse"),
+                                rangeObs = max(data2019res$G,na.rm=T)-min(data2019res$G,na.rm=T)))
+
+  nas <- intersect(which(!is.na(data2019res$Dm2019)),which(!is.na(data2019res$D)))
+  nas <- intersect(nas,which(!is.na(data2019res$Ds2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$Dda2019)))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("D", data2019res$Dm2019[nas],data2019res$D[nas],method=1))[2:5]),
+                                run="m2019",variable="D",components=c("sb","sdsd","lc","mse"),
+                                rangeObs = max(data2019res$D,na.rm=T)-min(data2019res$D,na.rm=T)))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("D", data2019res$Ds2019[nas],data2019res$D[nas],method=1))[2:5]),
+                                run="s2019",variable="D",components=c("sb","sdsd","lc","mse"),
+                                rangeObs = max(data2019res$D,na.rm=T)-min(data2019res$D,na.rm=T)))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("D", data2019res$Dda2019[nas],data2019res$D[nas],method=1))[2:5]),
+                                run="DA2019",variable="D",components=c("sb","sdsd","lc","mse"),
+                                rangeObs = max(data2019res$D,na.rm=T)-min(data2019res$D,na.rm=T)))
+  
+  nas <- intersect(which(!is.na(data2019res$Hm2019)),which(!is.na(data2019res$H)))
+  nas <- intersect(nas,which(!is.na(data2019res$Hs2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$Hda2019)))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("H", data2019res$Hm2019[nas],data2019res$H[nas],method=1))[2:5]),
                                 run="m2019",variable="H",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$H.mea/10,na.rm=T)-min(data2019res$H.mea/10,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("H", data2019res$Hs2019,data2019res$H.mea/10,method=1))[2:5]),
+                                rangeObs = max(data2019res$H,na.rm=T)-min(data2019res$H,na.rm=T)))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("H", data2019res$Hs2019[nas],data2019res$H[nas],method=1))[2:5]),
                                 run="s2019",variable="H",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$H.mea/10,na.rm=T)-min(data2019res$H.mea/10,na.rm=T)))
-  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("H", data2019res$HDA2019,data2019res$H.mea/10,method=1))[2:5]),
+                                rangeObs = max(data2019res$H,na.rm=T)-min(data2019res$H,na.rm=T)))
+  MSEs <- rbind(MSEs,data.table(value=as.numeric(unlist(MSEdec("H", data2019res$Hda2019[nas],data2019res$H[nas],method=1))[2:5]),
                                 run="DA2019",variable="H",components=c("sb","sdsd","lc","mse"),
-                                rangeObs = max(data2019res$H.mea/10,na.rm=T)-min(data2019res$H.mea/10,na.rm=T)))
+                                rangeObs = max(data2019res$H,na.rm=T)-min(data2019res$H,na.rm=T)))
   
   MSEs[components=="mse", RMSE:=sqrt(value)]
   
