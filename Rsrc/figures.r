@@ -47,52 +47,59 @@ for(i in 1:length(tiles)){
   points(data2019res$Bm2019,data2019res$G,col=3,pch=20)
   abline(0,1)
   
-  tabPrmse[1,i] <- p_rmse(data2019res$G,data2019res$Bm2019)
-  tabPrmse[2,i] <- p_rmse(data2019res$G,data2019res$Bs2019)
-  tabPrmse[3,i] <- p_rmse(data2019res$G,data2019res$Bda2019)
-  tabPbias[1,i] <- p_bias(data2019res$G,data2019res$Bm2019)
-  tabPbias[2,i] <- p_bias(data2019res$G,data2019res$Bs2019)
-  tabPbias[3,i] <- p_bias(data2019res$G,data2019res$Bda2019)
-  
-  tabRmse[1,i] <- rmse(data2019res$G,data2019res$Bm2019)
-  tabRmse[2,i] <- rmse(data2019res$G,data2019res$Bs2019)
-  tabRmse[3,i] <- rmse(data2019res$G,data2019res$Bda2019)
-  tabBias[1,i] <- bias(data2019res$G,data2019res$Bm2019)
-  tabBias[2,i] <- bias(data2019res$G,data2019res$Bs2019)
-  tabBias[3,i] <- bias(data2019res$G,data2019res$Bda2019)
+  nas <- intersect(which(!is.na(data2019res$Bm2019)),which(!is.na(data2019res$G)))
+  nas <- intersect(nas,which(!is.na(data2019res$Bs2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$Bda2019)))
+  tabPrmse[1,i] <- p_rmse(data2019res$G[nas],data2019res$Bm2019[nas])
+  tabPrmse[2,i] <- p_rmse(data2019res$G[nas],data2019res$Bs2019[nas])
+  tabPrmse[3,i] <- p_rmse(data2019res$G[nas],data2019res$Bda2019[nas])
+  tabPbias[1,i] <- p_bias(data2019res$G[nas],data2019res$Bm2019[nas])
+  tabPbias[2,i] <- p_bias(data2019res$G[nas],data2019res$Bs2019[nas])
+  tabPbias[3,i] <- p_bias(data2019res$G[nas],data2019res$Bda2019[nas])
+  tabRmse[1,i] <- rmse(data2019res$G[nas],data2019res$Bm2019[nas])
+  tabRmse[2,i] <- rmse(data2019res$G[nas],data2019res$Bs2019[nas])
+  tabRmse[3,i] <- rmse(data2019res$G[nas],data2019res$Bda2019[nas])
+  tabBias[1,i] <- bias(data2019res$G[nas],data2019res$Bm2019[nas])
+  tabBias[2,i] <- bias(data2019res$G[nas],data2019res$Bs2019[nas])
+  tabBias[3,i] <- bias(data2019res$G[nas],data2019res$Bda2019[nas])
 
-  tabPrmse[4,i] <- p_rmse(data2019res$H,data2019res$Hm2019)
-  tabPrmse[5,i] <- p_rmse(data2019res$H,data2019res$Hs2019)
-  tabPrmse[6,i] <- p_rmse(data2019res$H,data2019res$Hda2019)
-  tabPbias[4,i] <- p_bias(data2019res$H,data2019res$Hm2019)
-  tabPbias[5,i] <- p_bias(data2019res$H,data2019res$Hs2019)
-  tabPbias[6,i] <- p_bias(data2019res$H,data2019res$Hda2019)
+  nas <- intersect(which(!is.na(data2019res$Hm2019)),which(!is.na(data2019res$H)))
+  nas <- intersect(nas,which(!is.na(data2019res$Hs2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$Hda2019)))
+  tabPrmse[4,i] <- p_rmse(data2019res$H[nas],data2019res$Hm2019[nas])
+  tabPrmse[5,i] <- p_rmse(data2019res$H[nas],data2019res$Hs2019[nas])
+  tabPrmse[6,i] <- p_rmse(data2019res$H[nas],data2019res$Hda2019[nas])
+  tabPbias[4,i] <- p_bias(data2019res$H[nas],data2019res$Hm2019[nas])
+  tabPbias[5,i] <- p_bias(data2019res$H[nas],data2019res$Hs2019[nas])
+  tabPbias[6,i] <- p_bias(data2019res$H[nas],data2019res$Hda2019[nas])
+  tabRmse[4,i] <- rmse(data2019res$H[nas],data2019res$Hm2019[nas])
+  tabRmse[5,i] <- rmse(data2019res$H[nas],data2019res$Hs2019[nas])
+  tabRmse[6,i] <- rmse(data2019res$H[nas],data2019res$Hda2019[nas])
+  tabBias[4,i] <- bias(data2019res$H[nas],data2019res$Hm2019[nas])
+  tabBias[5,i] <- bias(data2019res$H[nas],data2019res$Hs2019[nas])
+  tabBias[6,i] <- bias(data2019res$H[nas],data2019res$Hda2019[nas])
   
-  tabRmse[4,i] <- rmse(data2019res$H,data2019res$Hm2019)
-  tabRmse[5,i] <- rmse(data2019res$H,data2019res$Hs2019)
-  tabRmse[6,i] <- rmse(data2019res$H,data2019res$Hda2019)
-  tabBias[4,i] <- bias(data2019res$H,data2019res$Hm2019)
-  tabBias[5,i] <- bias(data2019res$H,data2019res$Hs2019)
-  tabBias[6,i] <- bias(data2019res$H,data2019res$Hda2019)
-  
-  tabPrmse[7,i] <- p_rmse(data2019res$D,data2019res$Dm2019)
-  tabPrmse[8,i] <- p_rmse(data2019res$D,data2019res$Ds2019)
-  tabPrmse[9,i] <- p_rmse(data2019res$D,data2019res$Dda2019)
-  tabPbias[7,i] <- p_bias(data2019res$D,data2019res$Dm2019)
-  tabPbias[8,i] <- p_bias(data2019res$D,data2019res$Ds2019)
-  tabPbias[9,i] <- p_bias(data2019res$D,data2019res$Dda2019)
-  
-  tabRmse[7,i] <- rmse(data2019res$D,data2019res$Dm2019)
-  tabRmse[8,i] <- rmse(data2019res$D,data2019res$Ds2019)
-  tabRmse[9,i] <- rmse(data2019res$D,data2019res$Dda2019)
-  tabBias[7,i] <- bias(data2019res$D,data2019res$Dm2019)
-  tabBias[8,i] <- bias(data2019res$D,data2019res$Ds2019)
-  tabBias[9,i] <- bias(data2019res$D,data2019res$Dda2019)
+  nas <- intersect(which(!is.na(data2019res$Dm2019)),which(!is.na(data2019res$D)))
+  nas <- intersect(nas,which(!is.na(data2019res$Ds2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$Dda2019)))
+  tabPrmse[7,i] <- p_rmse(data2019res$D[nas],data2019res$Dm2019[nas])
+  tabPrmse[8,i] <- p_rmse(data2019res$D[nas],data2019res$Ds2019[nas])
+  tabPrmse[9,i] <- p_rmse(data2019res$D[nas],data2019res$Dda2019[nas])
+  tabPbias[7,i] <- p_bias(data2019res$D[nas],data2019res$Dm2019[nas])
+  tabPbias[8,i] <- p_bias(data2019res$D[nas],data2019res$Ds2019[nas])
+  tabPbias[9,i] <- p_bias(data2019res$D[nas],data2019res$Dda2019[nas])
+  tabRmse[7,i] <- rmse(data2019res$D[nas],data2019res$Dm2019[nas])
+  tabRmse[8,i] <- rmse(data2019res$D[nas],data2019res$Ds2019[nas])
+  tabRmse[9,i] <- rmse(data2019res$D[nas],data2019res$Dda2019[nas])
+  tabBias[7,i] <- bias(data2019res$D[nas],data2019res$Dm2019[nas])
+  tabBias[8,i] <- bias(data2019res$D[nas],data2019res$Ds2019[nas])
+  tabBias[9,i] <- bias(data2019res$D[nas],data2019res$Dda2019[nas])
 }
 
 write.csv(t(rbind(tabPrmse,tabPbias)),file="~/research/assessCarbon/tab1_a.csv")
 write.csv(t(rbind(tabRmse,tabBias)),file="~/research/assessCarbon/tab1_b.csv")
 
+MSEall <- data.table()
 for(i in 1:length(tiles)){
   tileX <- tiles[i]
   data2019res <- dataRes2019[Tile==tileX]
@@ -147,14 +154,14 @@ for(i in 1:length(tiles)){
   
   MSEs[components=="mse", RMSE:=sqrt(value)]
   
-  for(runX in unique(MSEs$run)){
-    for(vX in unique(MSEs$variable)){
-      MSEs[run==runX & variable==vX & !components%in%"mse",RMSE:=value/sum(value)]
-      MSEs[run==runX & variable==vX & !components%in%"mse",]$RMSE <- MSEs[run==runX & variable==vX & !components%in%"mse",]$RMSE * MSEs[run==runX & variable==vX & components%in%"mse",]$RMSE
-    }
-  }
+  # for(runX in unique(MSEs$run)){
+  #   for(vX in unique(MSEs$variable)){
+  #     MSEs[run==runX & variable==vX & !components%in%"mse",RMSE:=value/sum(value)]
+  #     MSEs[run==runX & variable==vX & !components%in%"mse",]$RMSE <- MSEs[run==runX & variable==vX & !components%in%"mse",]$RMSE * MSEs[run==runX & variable==vX & components%in%"mse",]$RMSE
+  #   }
+  # }
   
-  MSEs$pRMSE <- MSEs$RMSE/MSEs$rangeObs*100
+  # MSEs$pRMSE <- MSEs$RMSE/MSEs$rangeObs*100
   
   
   MSEs$run <- factor(MSEs$run, levels = c("m2019","s2019","est","DA2019"))
@@ -177,7 +184,7 @@ for(i in 1:length(tiles)){
                                   run="s2016"))
   xxAll <- rbind(xxAll,data.table(year=2019,value=rep(1:5,nSample*colMeans(probit2[,1:5])),
                                   run="s2019"))
-  
+
   probit1 <- data.table(probit1)
   aa <- 1:1e5
   xyAll <- data.table(melt(probit1[aa,],variable.name = "siteClass",measure.vars = 1:5)
@@ -197,12 +204,12 @@ for(i in 1:length(tiles)){
   xyAll <- rbind(xyAll,ii)
   xyAll$run <- factor(xyAll$run,levels = c("s2016","m2019","s2019","DA2019"))
   xyAll$siteClass <- factor(xyAll$siteClass)
-  
+
   ciao <- xyAll[,median(value),by=.(siteClass,run)]
-  
+
   oo <- ciao[,spline(siteClass,V1),by=run]
 
-  # ggplot(oo) + 
+  # ggplot(oo) +
   #   geom_line(aes(x = x, y = y, colour = run)) +
   #   coord_cartesian(ylim = c(0, 1.)) + theme(legend.title=element_blank())
   oo$tile <- tileX
@@ -214,32 +221,32 @@ for(i in 1:length(tiles)){
 
 
 
-pRMSE <- ggplot(MSEall[!components %in% "mse"& !run %in% "est"], 
-                aes(x=run, y=pRMSE, fill=components)) +
-  geom_bar(stat="identity")#, position = position_dodge(0.9)) +
-# scale_fill_manual(values = c("#00AFBB", "#E7B800"))
-RMSE <- ggplot(MSEall[!components %in% "mse"& !run %in% "est"], 
-               aes(x=run, y=RMSE, fill=components)) +
-  geom_bar(stat="identity")#, position = position_dodge(0.9)) +
+# pRMSE <- ggplot(MSEall[!components %in% "mse"& !run %in% "est"], 
+#                 aes(x=run, y=pRMSE, fill=components)) +
+#   geom_bar(stat="identity")#, position = position_dodge(0.9)) +
+# # scale_fill_manual(values = c("#00AFBB", "#E7B800"))
+# RMSE <- ggplot(MSEall[!components %in% "mse"& !run %in% "est"], 
+#                aes(x=run, y=RMSE, fill=components)) +
+#   geom_bar(stat="identity")#, position = position_dodge(0.9)) +
 # p + facet_grid(rows = vars(variable))
 MSE <- ggplot(MSEall[!components %in% "mse"& !run %in% "est"], 
                aes(x=run, y=value, fill=components)) +
   geom_bar(stat="identity")#, position = position_dodge(0.9)) +
-figRes1a <- pRMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-figRes1b <- RMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+# figRes1a <- pRMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+# figRes1b <- RMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 figRes1c <- MSE + facet_grid(rows = vars(variable), cols = vars(Tile),scales = "free_y") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 figRes1c
 
 # resFig1 <- figRes1c#ggarrange(figRes1a,figRes1b)
 # ggsave(resFig1,filename = paste0(pathX,"/figures/resFig1.png"),device = "png")
-ggsave(figRes1a,filename = paste0(pathX,"/figures/resFig1pRMSE.png"),device = "png")
-ggsave(figRes1b,filename = paste0(pathX,"/figures/resFig1rmse.png"),device = "png")
+# ggsave(figRes1a,filename = paste0(pathX,"/figures/resFig1pRMSE.png"),device = "png")
+# ggsave(figRes1b,filename = paste0(pathX,"figures/resFig1rmse"),device = "png")
 ggsave(figRes1c,filename = paste0(pathX,"/figures/resFig1mse.png"),device = "png")
 
-
+# ggsave(figRes1b,filename = "resFig1rmse",device = "png")
 
 # stPlot <- ggplot(stAll) + 
 #   geom_line(aes(x = as.factor(siteClass), y = V1, colour = as.factor(run),group=as.factor(run))) +
