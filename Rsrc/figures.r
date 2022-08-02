@@ -12,7 +12,8 @@ devtools::source_url("https://raw.githubusercontent.com/ForModLabUHel/utilStuff/
 # source("runSettings.r")
 print("define tileX. example: tileX <- '35VLJ'")
 tiles <- c("35VLJ", "34VEQ", "35WMN")
-pathX <- "~/research/assessCarbon/results/"
+sites <- c("Tampere","Vaasa","Oulu")
+pathX <- "C:/Users/minunno/Documents/research/assessCarbon/"
 # CSCrun=TRUE
 # if(CSCrun==TRUE){
 #   pathX <- "/scratch/project_2000994/PREBASruns/assessCarbon/"
@@ -36,7 +37,7 @@ pRMSE <- list()
 nSample <- 100000
 colX <- c("#0E95A5","#28B209","#DFB021","#ff8533")
 
-load(paste0(pathX,"dataRes2019.rdata"))
+load(paste0(pathX,"results/dataRes2019.rdata"))
 for(i in 1:length(tiles)){
   tileX <- tiles[i]
   #####Figure 1 reseults 
@@ -96,8 +97,8 @@ for(i in 1:length(tiles)){
   tabBias[9,i] <- bias(data2019res$D[nas],data2019res$Dda2019[nas])
 }
 
-write.csv(t(rbind(tabPrmse,tabPbias)),file="~/research/assessCarbon/tab1_a.csv")
-write.csv(t(rbind(tabRmse,tabBias)),file="~/research/assessCarbon/tab1_b.csv")
+write.csv(t(rbind(tabPrmse,tabPbias)),file=paste0(pathX,"tab1_a.csv"))
+write.csv(t(rbind(tabRmse,tabBias)),file=paste0(pathX,"tab1_b.csv"))
 
 MSEall <- data.table()
 for(i in 1:length(tiles)){
@@ -168,13 +169,14 @@ for(i in 1:length(tiles)){
   MSEs$components <- factor(MSEs$components, levels = c("sb","sdsd","lc","mse"))
   varX = "B"
   MSEs$Tile <- tileX
-  
+  MSEs$site <- sites[i]
+    
   MSEall <- rbind(MSEall,MSEs)
 
   
   
   #####start proc data Figure 2 results 
-  load(paste0("C:/Users/checcomi/Documents/research/assessCarbon/results/",tileX,"/stProbMod1.rdata"))
+  load(paste0(paste0(pathX,"/results/",tileX,"/stProbMod1.rdata")))
 
   xxAll <-  data.table(year=2019,value=rep(1:5,nSample*colMeans(stProb[,2:6])),
                        run="DA2019")
@@ -215,7 +217,8 @@ for(i in 1:length(tiles)){
   oo$tile <- tileX
   ciao$tile <- tileX
   xyAll$tile <- tileX
-
+  xyAll$site <- sites[i] 
+  
   stAll <- rbind(stAll,xyAll)
 }
 
@@ -229,14 +232,17 @@ for(i in 1:length(tiles)){
 #                aes(x=run, y=RMSE, fill=components)) +
 #   geom_bar(stat="identity")#, position = position_dodge(0.9)) +
 # p + facet_grid(rows = vars(variable))
-MSE <- ggplot(MSEall[!components %in% "mse"& !run %in% "est"], 
+MSE <- ggplot(MSEall[!components %in% "mse" &
+                       !run %in% "est"], 
                aes(x=run, y=value, fill=components)) +
   geom_bar(stat="identity")#, position = position_dodge(0.9)) +
 # figRes1a <- pRMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
 #   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 # figRes1b <- RMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
 #   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-figRes1c <- MSE + facet_grid(rows = vars(variable), cols = vars(Tile),scales = "free_y") +
+MSEall$site <- factor(MSEall$site,levels = c("Tampere","Vaasa","Oulu"))
+
+figRes1c <- MSE + facet_grid(rows = vars(variable), cols = vars(site),scales = "free_y") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 figRes1c
 
@@ -244,7 +250,7 @@ figRes1c
 # ggsave(resFig1,filename = paste0(pathX,"/figures/resFig1.png"),device = "png")
 # ggsave(figRes1a,filename = paste0(pathX,"/figures/resFig1pRMSE.png"),device = "png")
 # ggsave(figRes1b,filename = paste0(pathX,"figures/resFig1rmse"),device = "png")
-ggsave(figRes1c,filename = paste0(pathX,"/figures/resFig1mse.png"),device = "png")
+ggsave(figRes1c,filename = paste0(pathX,"/results/figures/resFig1mse.png"),device = "png",height=5,width=5)
 
 # ggsave(figRes1b,filename = "resFig1rmse",device = "png")
 
@@ -252,17 +258,17 @@ ggsave(figRes1c,filename = paste0(pathX,"/figures/resFig1mse.png"),device = "png
 #   geom_line(aes(x = as.factor(siteClass), y = V1, colour = as.factor(run),group=as.factor(run))) +
 #   # coord_cartesian(ylim = c(-0.10, 1.)) +
 #   theme(legend.title=element_blank())
-
+stAll$site <- factor(stAll$site,levels = c("Tampere","Vaasa","Oulu"))
 stPlot <- ggplot(stAll, aes(x=siteClass, y=value, fill=run,color=run)) +
     geom_boxplot() + scale_fill_manual(values=alpha(colX,0.3)) +
     scale_color_manual(values=colX)+ ylab(NULL) +
   theme(legend.title=element_blank())
 
 ####Figure 2
-figRes2 <- stPlot + facet_grid( cols = vars(tile)) 
+figRes2 <- stPlot + facet_grid( cols = vars(site)) 
 figRes2
 
-ggsave(figRes2,filename = paste0(pathX,"/figures/resFig2.png"),device = "png")
+ggsave(figRes2,filename = paste0(pathX,"/results/figures/resFig2.png"),device = "png")
 
 xpX <- dataPlot <- list()
 
@@ -292,7 +298,7 @@ pSC2 <- ggplot(data=xy, aes(x=siteClass, y=prob, color=run,group=run)) +
 pSC2
 figRes2.1 <- ggarrange(pSC1,pSC2,common.legend = T)
 
-ggsave(figRes2.1,filename = paste0(pathX,"/figures/resFig2.1.png"),device = "png")
+ggsave(figRes2.1,filename = paste0(pathX,"/results/figures/resFig2.1.png"),device = "png")
 
 
 
@@ -304,7 +310,7 @@ ggsave(figRes2.1,filename = paste0(pathX,"/figures/resFig2.1.png"),device = "png
 ####Figure 3
 for(i in 1:length(tiles)){
   tileX <- tiles[i]
-  load(paste0("C:/Users/checcomi/Documents/research/assessCarbon/results/",tileX,"/dataForPlots.rdata"))
+  load(paste0(paste0(pathX,"/results/",tileX,"/dataForPlots.rdata")))
   
   dataAll$tile <- tileX
   dataPlot <- rbind(dataPlot,dataAll)
@@ -320,6 +326,8 @@ for(i in 1:length(tiles)){
             "variance pine (%)","variance spruce (%)","variance birch (%)")
   
   dataPlot$titles <- ciao[match(dataPlot$varNam,unique(dataPlot$varNam))]
+  dataPlot$site <- sites[match(dataPlot$tile,tiles)]
+  dataPlot$site <- factor(dataPlot$site,levels=c("Tampere","Vaasa","Oulu"))
   
   pFSV <- ggplot(dataPlot[varNam%in%vars[1:3]],
                                 aes(x = value, y = run, fill = stat(x))) + 
@@ -344,13 +352,13 @@ for(i in 1:length(tiles)){
     xlab(NULL)+ ylab(NULL)
   
     
-    figRes3a <- pFSV + facet_grid(rows = vars(tile), cols = vars(titles)) +
+    figRes3a <- pFSV + facet_grid(rows = vars(site), cols = vars(titles)) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-    figRes3b <- pCover + facet_grid(rows = vars(tile), cols = vars(titles)) +
+    figRes3b <- pCover + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-    figRes3c <- pvFSV + facet_grid(rows = vars(tile), cols = vars(titles)) +
+    figRes3c <- pvFSV + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-    figRes3d <- pvCover + facet_grid(rows = vars(tile), cols = vars(titles)) +
+    figRes3d <- pvCover + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     
     figRes3a
@@ -358,10 +366,10 @@ for(i in 1:length(tiles)){
     figRes3c
     figRes3d
     
-    ggsave(figRes3a,filename = paste0(pathX,"/figures/resFig3a.png"),device = "png")
-    ggsave(figRes3b,filename = paste0(pathX,"/figures/resFig3b.png"),device = "png")
-    ggsave(figRes3c,filename = paste0(pathX,"/figures/resFig3c.png"),device = "png")
-    ggsave(figRes3d,filename = paste0(pathX,"/figures/resFig3d.png"),device = "png")
+    ggsave(figRes3a,filename = paste0(pathX,"results/figures/resFig3a.png"),device = "png",width = 7,h=5)
+    ggsave(figRes3b,filename = paste0(pathX,"results/figures/resFig3b.png"),device = "png",width = 7,h=5)
+    ggsave(figRes3c,filename = paste0(pathX,"results/figures/resFig3c.png"),device = "png",width = 7,h=5)
+    ggsave(figRes3d,filename = paste0(pathX,"results/figures/resFig3d.png"),device = "png",width = 7,h=5)
     
 
 ##Maps and hist
@@ -397,7 +405,7 @@ for(i in 1:length(tiles)){
     
 for(i in 1:length(tiles)){
   tileX <- tiles[i]
-  pathLap <- paste0("C:/Users/checcomi/Documents/research/assessCarbon/results/",tileX,"/rasters/")
+  pathLap <- paste0(paste0(pathX,"results/",tileX,"/rasters/"))
   pathCSC <- paste0("/scratch/project_2000994/PREBASruns/assessCarbon/rasters/Finland/AC_training_FI_",tileX,"/outRast/init2016/")
   pathX <- pathCSC
   
@@ -415,9 +423,9 @@ for(i in 1:length(tiles)){
   mapH <- createMaps(Dda,Ds,Dm,"H","(m)")
   mapB <- createMaps(Dda,Ds,Dm,"B","(m2/ha)")
 
-  save(mapD,file = paste0(pathX,"/mapsD.rdata"))
-  save(mapH,file = paste0(pathX,"/mapsH.rdata"))
-  save(mapB,file = paste0(pathX,"/mapsB.rdata"))
+  save(mapD,file = paste0(pathX,"results/mapsD.rdata"))
+  save(mapH,file = paste0(pathX,"results/mapsH.rdata"))
+  save(mapB,file = paste0(pathX,"results/mapsB.rdata"))
   # ggsave(mapH,filename = paste0(pathX,"/mapH.png"),device = "png")
   # ggsave(mapB,filename = paste0(pathX,"/mapB.png"),device = "png")
   print(tileX)
@@ -426,7 +434,7 @@ for(i in 1:length(tiles)){
 mapX <- list()
 for(i in 1:length(tiles)){
   tileX <- tiles[i]
-  pathLap <- paste0("C:/Users/checcomi/Documents/research/assessCarbon/results/",tileX,"/rasters/")
+  pathLap <- paste0(pathX,"results/",tileX,"/rasters/")
   pathCSC <- paste0("/scratch/project_2000994/PREBASruns/assessCarbon/rasters/Finland/AC_training_FI_",tileX,"/outRast/init2016/")
   pathX <- pathCSC
   load(paste0(pathX,"/mapsD.rdata"))
