@@ -174,10 +174,10 @@ createMaps <- function(rastDA,rastS,rastM,varX,unitsX){
 # }
 # 
 # 
-# maps <- list()
-# dev <- list()
-# varXs <- c("D","H","B")
-# unitsX <- c("cm","m","m2/ha")
+maps <- list()
+dev <- list()
+varXs <- c("D","H","B")
+unitsX <- c("cm","m","m2/ha")
 print("I'm here 1")
 for(jx in 1:3){ #loop variables
   for(i in 1:length(tileXs)){ #loop tiles
@@ -204,17 +204,17 @@ for(jx in 1:3){ #loop variables
             legend.title = element_blank())+
       scale_color_discrete(labels = c("m2019-DA2019", "s2019-DA2019"))
     print(tileX)
-    pMap[[i]] <- gplot(maps[[i]],maxpixels=maxpixels) + geom_tile(aes(fill = value)) +
-      # facet_wrap(~ names) +
-      # annotate(geom = 'text', x=1, y=1, label=tileX) + theme_void() +
-      scale_fill_gradient(low = 'white', high = 'dark green',name = paste(varXs[jx],unitsX[jx])) +
-      scale_alpha(range = c(0.15, 0.65), guide = "none") +
-      coord_equal()+  theme(axis.title=element_blank(),
-                            axis.text=element_blank(),
-                            axis.ticks=element_blank()) +
-      ggtitle(sites[i]) +
-      theme(legend.position="top") + 
-      ylab(NULL) + xlab(NULL)
+    # pMap[[i]] <- gplot(maps[[i]],maxpixels=maxpixels) + geom_tile(aes(fill = value)) +
+    #   # facet_wrap(~ names) +
+    #   # annotate(geom = 'text', x=1, y=1, label=tileX) + theme_void() +
+    #   scale_fill_gradient(low = 'white', high = 'dark green',name = paste(varXs[jx],unitsX[jx])) +
+    #   scale_alpha(range = c(0.15, 0.65), guide = "none") +
+    #   coord_equal()+  theme(axis.title=element_blank(),
+    #                         axis.text=element_blank(),
+    #                         axis.ticks=element_blank()) +
+    #   ggtitle(sites[i]) +
+    #   theme(legend.position="top") + 
+    #   ylab(NULL) + xlab(NULL)
   } #end loop tiles
   
   figX[[jx]] <- ggarrange(ggarrange(pMap[[1]], pMap[[2]],pMap[[3]],
