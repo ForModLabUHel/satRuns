@@ -178,6 +178,7 @@ createMaps <- function(rastDA,rastS,rastM,varX,unitsX){
 # dev <- list()
 # varXs <- c("D","H","B")
 # unitsX <- c("cm","m","m2/ha")
+print("I'm here 1")
 for(jx in 1:3){ #loop variables
   for(i in 1:length(tileXs)){ #loop tiles
     tileX <- tileXs[i]
@@ -223,6 +224,9 @@ for(jx in 1:3){ #loop variables
                           nrow = 2) 
   
 } #end loop variables
+print("I'm here 2")
+save(figX,file = "maps.rdata")
+
 setwd("/scratch/project_2000994/PREBASruns/assessCarbon/")
 save(figX,file = "maps/maps.rdata")
 
