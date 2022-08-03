@@ -259,16 +259,19 @@ ggsave(figRes1c,filename = paste0(pathX,"/results/figures/resFig1mse.png"),devic
 #   # coord_cartesian(ylim = c(-0.10, 1.)) +
 #   theme(legend.title=element_blank())
 stAll$site <- factor(stAll$site,levels = c("Tampere","Vaasa","Oulu"))
-stPlot <- ggplot(stAll, aes(x=siteClass, y=value, fill=run,color=run)) +
-    geom_boxplot() + scale_fill_manual(values=alpha(colX,0.3)) +
-    scale_color_manual(values=colX)+ ylab(NULL) +
+stAll$run <- factor(stAll$run,levels = c("s2016","m2019","s2019","DA2019"))
+
+stPlot <- ggplot(stAll, aes(x=siteClass, y=value)) +
+    geom_boxplot() + ylab(NULL) + #scale_fill_manual(values=alpha(colX,0.3)) +
+    #scale_color_manual(values=colX)+ 
   theme(legend.title=element_blank())
 
 ####Figure 2
-figRes2 <- stPlot + facet_grid( cols = vars(site)) 
+figRes2 <- stPlot + facet_grid( cols = vars(site),rows = vars(run)) 
 figRes2
 
-ggsave(figRes2,filename = paste0(pathX,"/results/figures/resFig2.png"),device = "png")
+ggsave(figRes2,filename = paste0(pathX,"/results/figures/resFig2.png"),
+       device = "png",width = 7,h=7)
 
 xpX <- dataPlot <- list()
 
@@ -305,7 +308,7 @@ ggsave(figRes2.1,filename = paste0(pathX,"/results/figures/resFig2.1.png"),devic
 
 
 
-
+dataPlot <- data.table()
 
 ####Figure 3
 for(i in 1:length(tiles)){

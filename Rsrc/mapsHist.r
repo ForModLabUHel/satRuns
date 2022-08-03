@@ -200,7 +200,7 @@ for(jx in 1:3){ #loop variables
     dat$offset <- as.factor(dat$offset)
     dat$variable=varXs[jx]
     dat$site=sites[i]
-    dat$units=unitsX[i]
+    dat$units=unitsX[jx]
     
     datAll <- rbind(datAll,dat)    
     # datAll[[z]] <- dat
@@ -250,22 +250,24 @@ for(jx in 1:3){ #loop variables
 print("I'm here 2")
 
 datAll$site <- factor(datAll$site,levels=c("Tampere","Vaasa","Oulu"))
+datAll$variable <- factor(datAll$variable,levels=c("B","D","H"))
 
 
-
-histX <- ggplot(ciao, aes(x=counts, color=offset)) +
+histX <- ggplot(datAll, aes(x=counts, color=offset)) +
   geom_histogram(fill="white", alpha=0.5, position="identity") +
-  ylab(NULL) + #xlab(paste0(varXs[1]," offset ",unitsX[1])) +
-  # theme(axis.title.y=element_blank(),
-  #       axis.text.y=element_blank(),
-  #       axis.ticks.y=element_blank(),
-  #       legend.title = element_blank())+
+  ylab(NULL) + xlab("offset") +
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        legend.title = element_blank())+
   scale_color_discrete(labels = c("m2019-DA2019", "s2019-DA2019"))
 
-histX + facet_grid(rows = vars(variable),cols = vars(site))
+histMap <- histX + facet_grid(cols = vars(variable), rows = vars(site))+theme(legend.position="bottom")
 
 setwd("/scratch/project_2000994/PREBASruns/assessCarbon/")
-save(datAll,histX,file = "maps/mapsHist.rdata")
+save(histMap,file = "maps/mapsHist.rdata")
+
+ggsave(histMap,filename = "maps/mapsHist.png",device = "png")
 
 ####on laptop
 # setwd("~/research/assessCarbon/")
