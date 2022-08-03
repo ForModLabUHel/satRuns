@@ -224,7 +224,7 @@ for(jx in 1:3){ #loop variables
   
 } #end loop variables
 setwd("/scratch/project_2000994/PREBASruns/assessCarbon/")
-save(figX,file = "maps.rdata")
+save(figX,file = "maps/maps.rdata")
 
 ####on laptop
 # setwd("~/research/assessCarbon/")
