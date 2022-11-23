@@ -221,7 +221,7 @@ for(i in 1:length(tiles)){
   
   stAll <- rbind(stAll,xyAll)
 }
-
+MSEall[variable=="B"]$variable <- "G"
 
 
 # pRMSE <- ggplot(MSEall[!components %in% "mse"& !run %in% "est"], 
@@ -324,10 +324,26 @@ for(i in 1:length(tiles)){
              "variance (m)","variance (cm)","variance (m2)",
              "variance (%)", "variance (%)", "variance (%)")
   
-  ciao <- c("H (m)", "B (m2/ha)", "D (cm)","pine (%)","spruce (%)","birch (%)",
-            "variance H", "variance D", "variance B",
+  ciao <- c("H", "B", "D","pine (%)","spruce (%)","birch (%)",
+            "varH", "varD", "varB",
             "variance pine (%)","variance spruce (%)","variance birch (%)")
   
+  my_labeller = as_labeller(
+    c(
+      H = 'H~(m)', 
+      B = 'G~(m^2*ha^-1)', 
+      `D` = 'D~(cm)'
+    ), 
+    default = label_parsed
+  )
+  my_labeller_var = as_labeller(
+    c(
+      varD = 'D~variance', 
+      varH = 'H~variance', 
+      varB = 'G~variance'
+    ), 
+    default = label_parsed
+  )
   dataPlot$titles <- ciao[match(dataPlot$varNam,unique(dataPlot$varNam))]
   dataPlot$site <- sites[match(dataPlot$tile,tiles)]
   dataPlot$site <- factor(dataPlot$site,levels=c("Tampere","Vaasa","Oulu"))
@@ -355,11 +371,11 @@ for(i in 1:length(tiles)){
     xlab(NULL)+ ylab(NULL)
   
     
-    figRes3a <- pFSV + facet_grid(rows = vars(site), cols = vars(titles)) +
+    figRes3a <- pFSV + facet_grid(rows = vars(site), cols = vars(titles),labeller = my_labeller) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     figRes3b <- pCover + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-    figRes3c <- pvFSV + facet_grid(rows = vars(site), cols = vars(titles)) +
+    figRes3c <- pvFSV + facet_grid(rows = vars(site), cols = vars(titles),labeller = my_labeller_var) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     figRes3d <- pvCover + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))

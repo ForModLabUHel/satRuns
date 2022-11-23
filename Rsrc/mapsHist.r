@@ -144,7 +144,7 @@ createMaps <- function(rastDA,rastS,rastM,varX,unitsX){
 figX <- list()
 maps <- list()
 dev <- list()
-varXs <- c("D","H","B")
+varXs <- c("D","H","G")
 unitsX <- c("(cm)","(m)","(m2/ha)")
 maxpixels <- 1000000
 histX <- list()
@@ -185,9 +185,9 @@ z=1
 for(jx in 1:3){ #loop variables
   for(i in 1:length(tileXs)){ #loop tiles
     tileX <- tileXs[i]
-    pathLap <- paste0("C:/Users/checcomi/Documents/research/assessCarbon/results/",tileX,"/rasters/")
+    pathLap <- paste0("C:/Users/minunno/Documents/research/assessCarbon/results/",tileX,"/rasters/")
     pathCSC <- paste0("/scratch/project_2000994/PREBASruns/assessCarbon/rasters/Finland/AC_training_FI_",tileX,"/outRast/init2016/")
-    pathX <- pathCSC
+    pathX <- pathLap
     maps[[i]] <- raster(paste0(pathX,varXs[jx],"da2019.tif"))
     dev$m2019 <- raster(paste0(pathX,varXs[jx],"m2019.tif")) - raster(paste0(pathX,varXs[jx],"da2019.tif"))
     dev$s2019 <- raster(paste0(pathX,varXs[jx],"s2019.tif")) - raster(paste0(pathX,varXs[jx],"da2019.tif"))
@@ -249,8 +249,9 @@ for(jx in 1:3){ #loop variables
 } #end loop variables
 print("I'm here 2")
 
+datAll[variable=="B"]$variable <- "G"
 datAll$site <- factor(datAll$site,levels=c("Tampere","Vaasa","Oulu"))
-datAll$variable <- factor(datAll$variable,levels=c("B","D","H"))
+datAll$variable <- factor(datAll$variable,levels=c("G","D","H"))
 
 
 histX <- ggplot(datAll, aes(x=counts, color=offset)) +
@@ -264,10 +265,10 @@ histX <- ggplot(datAll, aes(x=counts, color=offset)) +
 
 histMap <- histX + facet_grid(cols = vars(variable), rows = vars(site))+theme(legend.position="bottom")
 
-setwd("/scratch/project_2000994/PREBASruns/assessCarbon/")
-save(histMap,file = "maps/mapsHist.rdata")
-
-ggsave(histMap,filename = "maps/mapsHist.png",device = "png")
+# setwd("/scratch/project_2000994/PREBASruns/assessCarbon/")
+# save(histMap,file = "C:/Users/minunno/Documents/research/assessCarbon/results/figures/fig10.rdata")
+ggsave(histMap,filename = "C:/Users/minunno/Documents/research/assessCarbon/results/figures/fig10.png",
+       device = "png",width = 8,height = 5)
 
 ####on laptop
 # setwd("~/research/assessCarbon/")

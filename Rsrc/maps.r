@@ -58,7 +58,7 @@ createMaps <- function(rastDA,rastS,rastM,varX,unitsX){
 # # mclapply(1:length(tileXs),function(i){
 for(i in 1:length(tileXs)){
   tileX <- tileXs[i]
-  pathLap <- paste0("C:/Users/checcomi/Documents/research/assessCarbon/results/",tileX,"/rasters/")
+  pathLap <- paste0("C:/Users/minunno/Documents/research/assessCarbon/results/",tileX,"/rasters/")
   pathCSC <- paste0("/scratch/project_2000994/PREBASruns/assessCarbon/rasters/Finland/AC_training_FI_",tileX,"/outRast/init2016/")
   pathX <- pathCSC
 
