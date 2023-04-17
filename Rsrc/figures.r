@@ -262,7 +262,7 @@ stAll$site <- factor(stAll$site,levels = c("Tampere","Vaasa","Oulu"))
 stAll$run <- factor(stAll$run,levels = c("s2016","m2019","s2019","DA2019"))
 
 stPlot <- ggplot(stAll, aes(x=siteClass, y=value)) +
-    geom_boxplot() + ylab(NULL) + #scale_fill_manual(values=alpha(colX,0.3)) +
+    geom_boxplot(outlier.shape ="-") + ylab(NULL) + #scale_fill_manual(values=alpha(colX,0.3)) +
     #scale_color_manual(values=colX)+ 
   theme(legend.title=element_blank())
 
@@ -284,7 +284,7 @@ xy <- rbind(xy,data.table(siteClass=1:5,prob=as.numeric(stProb[nX,2:6]),run="DA2
 xy$run <- factor(xy$run,levels = c("s2016","m2019","s2019","DA2019"))
 
 pSC1 <- ggplot(data=xy, aes(x=siteClass, y=prob, color=run,group=run)) +
-  geom_line() + theme(legend.title=element_blank())+
+  geom_point() + geom_line() + theme(legend.title=element_blank())+
   scale_color_manual(values=colX) + ylab(NULL) + ggtitle("A")
 pSC1
 
@@ -296,12 +296,13 @@ xy <- rbind(xy,data.table(siteClass=1:5,prob=as.numeric(stProb[nX,2:6]),run="DA2
 xy$run <- factor(xy$run,levels = c("s2016","m2019","s2019","DA2019"))
 
 pSC2 <- ggplot(data=xy, aes(x=siteClass, y=prob, color=run,group=run)) +
-  geom_line() + theme(legend.title=element_blank()) +
+  geom_point() + geom_line() + theme(legend.title=element_blank()) +
   scale_color_manual(values=colX) + ylab(NULL) + ggtitle("B")
 pSC2
 figRes2.1 <- ggarrange(pSC1,pSC2,common.legend = T)
 
-ggsave(figRes2.1,filename = paste0(pathX,"/results/figures/resFig2.1.png"),device = "png")
+ggsave(figRes2.1,filename = paste0(pathX,"/results/figures/resFig2.1.png"),
+       device = "png",width = 7,height=7)
 
 
 
