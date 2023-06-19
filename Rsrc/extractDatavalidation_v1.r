@@ -51,6 +51,28 @@ for(i in 1:nSplit){
   dataX$Hs2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
   xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "HDA2019"]$V1
   dataX$HDA2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perPm2019"]$V1
+  dataX$perPm2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perPs2019"]$V1
+  dataX$perPs2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perPDA2019"]$V1
+  dataX$perPDA2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perSPm2019"]$V1
+  dataX$perSPm2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perSPs2019"]$V1
+  dataX$perSPs2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perSPDA2019"]$V1
+  dataX$perSPDA2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perBm2019"]$V1
+  dataX$perBm2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perBs2019"]$V1
+  dataX$perBs2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  xxx <- pMvNorm[segID %in% dataX$segID & pMvNorm$varNam == "perBDA2019"]$V1
+  dataX$perBDA2019 <- xxx[match(dataX$segID,unique(dataX$segID))] 
+  
 
   data2019res <- rbind(data2019res,dataX)
   rm(pMvNorm,dataX); gc()
