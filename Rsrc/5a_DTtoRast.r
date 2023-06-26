@@ -11,24 +11,11 @@ setwd(generalPath)
 mkfldr <- paste0("outRast/","init",startingYear)
 if(!dir.exists(file.path(generalPath, mkfldr))) {
   dir.create(file.path(generalPath, mkfldr), recursive = TRUE)
-  library(devtools)
-  # Run settings (if modifiedSettings is not set to TRUE in batch job script, default settings from Github will be used)
-  source_url("https://raw.githubusercontent.com/ForModLabUHel/satRuns/master/Rsrc/settings.r")
-  if(file.exists("localSettings.r")) {source("localSettings.r")} # use settings file in local directory if one exists
-  
-  # Run functions 
-  source_url("https://raw.githubusercontent.com/ForModLabUHel/satRuns/master/Rsrc/functions.r")
-  
-  # Check and create output directories
-  setwd(generalPath)
-  mkfldr <- paste0("outRast/","init",startingYear)
-  if(!dir.exists(file.path(generalPath, mkfldr))) {
-    dir.create(file.path(generalPath, mkfldr), recursive = TRUE)
-  }
-  
-  load(paste0(procDataPath,"init",startingYear,"/","DA",yearOut,"/XYsegID.rdata"))  
-  crsX <- crs(raster(baRast))
-  
+}
+
+load(paste0(procDataPath,"init",startingYear,"/","DA",yearOut,"/XYsegID.rdata"))  
+crsX <- crs(raster(baRast))
+
   setkey(XYsegID,segID)
   Dda2019 <- Dm2019 <- Ds2019 <- 
     Hda2019 <- Hm2019 <- Hs2019 <- 
@@ -37,6 +24,7 @@ if(!dir.exists(file.path(generalPath, mkfldr))) {
     perPs2019 <- perSPs2019 <- perBs2019 <- 
     perPda2019 <- perSPda2019 <- perBda2019 <- 
     data.table()
+  
   for(i in 1:20){
     load(paste0("posterior/pMvn_FSV_split",i,".rdata"))
     pMvNorm$varNam <- rep(
