@@ -5,7 +5,7 @@ library(sf)
 valData <- fread("/scratch/project_2000994/PREBASruns/assessCarbon/data/valData.txt",header = T)
 valData_shp <- shapefile("/scratch/project_2000994/PREBASruns/assessCarbon/data/valShp/AC_2019_accuracy_plots.shp")
 
-tiles <- c("35VLJ", "34VEQ", "35WMN")
+tiles <- c("34VEQ", "35VLJ", "35WMN")
 
 
 
@@ -15,7 +15,7 @@ for(i in 1:length(tiles)){
   pathX <- paste0("/scratch/project_2000994/PREBASruns/assessCarbon/rasters/Finland/AC_training_FI_",tileX,"/outRast/init2016/")
   rastX <- raster(paste0(pathX,"Bda2019.tif"))
   dataAll[[i]] <- crop(valData_shp,extent(rastX))
-###Ba 
+  ###Ba 
   rastX <- raster(paste0(pathX,"Bda2019.tif"))
   dataAll[[i]]$Bda2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
   rastX <- raster(paste0(pathX,"Bm2019.tif"))
@@ -51,6 +51,41 @@ for(i in 1:length(tiles)){
   points(dataAll[[i]]$Dm2019,dataAll[[i]]$D,col=2,pch=20)
   points(dataAll[[i]]$Dda2019,dataAll[[i]]$D,col=3,pch=20)
   
+  #perP 
+  rastX <- raster(paste0(pathX,"perPda2019.tif"))
+  dataAll[[i]]$perPda2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  rastX <- raster(paste0(pathX,"perPm2019.tif"))
+  dataAll[[i]]$perPm2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  rastX <- raster(paste0(pathX,"perPs2019.tif"))
+  dataAll[[i]]$perPs2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  
+  plot(dataAll[[i]]$perPda2019,dataAll[[i]]$PINE,ylab="measuremens",xlab="models",main="D")
+  points(dataAll[[i]]$perPm2019,dataAll[[i]]$PINE,col=2,pch=20)
+  points(dataAll[[i]]$perPs2019,dataAll[[i]]$PINE,col=3,pch=20)
+  
+  #perSP 
+  rastX <- raster(paste0(pathX,"perSPda2019.tif"))
+  dataAll[[i]]$perSPda2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  rastX <- raster(paste0(pathX,"perSPm2019.tif"))
+  dataAll[[i]]$perSPm2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  rastX <- raster(paste0(pathX,"perSPs2019.tif"))
+  dataAll[[i]]$perSPs2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  
+  plot(dataAll[[i]]$perSPda2019,dataAll[[i]]$SPRUCE,ylab="measuremens",xlab="models",main="D")
+  points(dataAll[[i]]$perSPm2019,dataAll[[i]]$SPRUCE,col=2,pch=20)
+  points(dataAll[[i]]$perSPs2019,dataAll[[i]]$SPRUCE,col=3,pch=20)
+  
+  #perB
+  rastX <- raster(paste0(pathX,"perBda2019.tif"))
+  dataAll[[i]]$perBda2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  rastX <- raster(paste0(pathX,"perBm2019.tif"))
+  dataAll[[i]]$perBm2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  rastX <- raster(paste0(pathX,"perBs2019.tif"))
+  dataAll[[i]]$perBs2019 <-raster::extract(rastX, dataAll[[i]], fun = mean, na.rm = TRUE)
+  
+  plot(dataAll[[i]]$perBda2019,dataAll[[i]]$BL,ylab="measuremens",xlab="models",main="D")
+  points(dataAll[[i]]$perBm2019,dataAll[[i]]$BL,col=2,pch=20)
+  points(dataAll[[i]]$perBs2019,dataAll[[i]]$BL,col=3,pch=20)
 }
 
 
