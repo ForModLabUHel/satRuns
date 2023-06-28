@@ -62,6 +62,17 @@ errData$t35VNL <- calError(dataAll[S2Tile == "35VNL"])
 errData$t34VEQ <- calError(dataAll[S2Tile == "34VEQ"])
 errData$t35WMN <- calError(dataAll[S2Tile == "35WMN"])
 
+###fit error models
+errData <- errMod(errData,"y2016","t35VLJ",data2016)
+errData <- errMod(errData,"y2016","t35VNL",data2016)
+errData <- errMod(errData,"y2016","t34VEQ",data2016)
+errData <- errMod(errData,"y2016","t35WMN",data2016)
+errData <- errMod(errData,"y2019","t35VLJ",data2019)
+errData <- errMod(errData,"y2019","t35VNL",data2019)
+errData <- errMod(errData,"y2019","t34VEQ",data2019)
+errData <- errMod(errData,"y2019","t35WMN",data2019)
+
+
 if(CSCrun){
   save(errData,file="/scratch/project_2000994/PREBASruns/assessCarbon/data/inputUncer.rdata") # in CSC
 }else{

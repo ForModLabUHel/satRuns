@@ -802,3 +802,34 @@ prForUnc <- function(segIDx,nSample,yearUnc,tileX){
   pars <- as.vector(pMvnormx)
   return(pars)
 }
+
+
+
+###calculate error models
+errMod <- function(errX,yX,tX,dataX){
+  errX[[yX]][[tX]]$errMod$linG <- lm(dataX$G.est~dataX$G.mea)
+  xSites <- intersect(which(dataX$G.est>0),which(dataX$G.mea>0))
+  errX[[yX]][[tX]]$errMod$logG <- lm(dataX$G.est[xSites]~log(dataX$G.mea[xSites]))
+  
+  errX[[yX]][[tX]]$errMod$linD <- lm(dataX$D.est~dataX$D.mea)
+  xSites <- intersect(which(dataX$D.est>0),which(dataX$D.mea>0))
+  errX[[yX]][[tX]]$errMod$logD <- lm(dataX$D.est[xSites]~log(dataX$D.mea[xSites]))
+  
+  errX[[yX]][[tX]]$errMod$linH <- lm(dataX$H.est~dataX$H.mea)
+  xSites <- intersect(which(dataX$H.est>0),which(dataX$H.mea>0))
+  errX[[yX]][[tX]]$errMod$logH <- lm(dataX$H.est[xSites]~log(dataX$H.mea[xSites]))
+  
+  errX[[yX]][[tX]]$errMod$linPINE <- lm(dataX$PINE.est~dataX$PINE.mea)
+  xSites <- intersect(which(dataX$PINE.est>0),which(dataX$PINE.mea>0))
+  errX[[yX]][[tX]]$errMod$logPINE <- lm(dataX$PINE.est[xSites]~log(dataX$PINE.mea[xSites]))
+  
+  errX[[yX]][[tX]]$errMod$linSPRUCE <- lm(dataX$SPRUCE.est~dataX$SPRUCE.mea)
+  xSites <- intersect(which(dataX$SPRUCE.est>0),which(dataX$SPRUCE.mea>0))
+  errX[[yX]][[tX]]$errMod$logSPRUCE <- lm(dataX$SPRUCE.est[xSites]~log(dataX$SPRUCE.mea[xSites]))
+  
+  errX[[yX]][[tX]]$errMod$linBL <- lm(dataX$BL.est~dataX$BL.mea)
+  xSites <- intersect(which(dataX$BL.est>0),which(dataX$BL.mea>0))
+  errX[[yX]][[tX]]$errMod$logBL <- lm(dataX$BL.est[xSites]~log(dataX$BL.mea[xSites]))
+  
+  return(errX)
+}
