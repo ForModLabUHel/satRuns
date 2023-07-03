@@ -92,10 +92,34 @@ setnames(data.all,c("x","y","ba","blp","dbh","v","h","pineP","spruceP",
                     "pineP2","spruceP2","blp2", if (mgmtmask==T) "mgmtmask","climID"))
 
 ####calibrated error
-# data.all$ba <- (data.all$ba - errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[1])/
-#   errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[2]
-# data.all$ba <- (data.all$ba - errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[1])/
-#   errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[2]
+data.all$ba <- (data.all$ba - calErr$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[1])/
+  calErr$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[2]
+data.all$dbh <- (data.all$dbh - calErr$y2016[[paste0("t",tileX)]]$errMod$linD$coefficients[1])/
+  calErr$y2016[[paste0("t",tileX)]]$errMod$linD$coefficients[2]
+data.all$v <- (data.all$v - calErr$y2016[[paste0("t",tileX)]]$errMod$linV$coefficients[1])/
+  calErr$y2016[[paste0("t",tileX)]]$errMod$linV$coefficients[2]
+data.all$h <- 10*((data.all$h/10 - calErr$y2016[[paste0("t",tileX)]]$errMod$linH$coefficients[1])/
+  calErr$y2016[[paste0("t",tileX)]]$errMod$linH$coefficients[2])
+# data.all$blp <- (data.all$blp - calErr$y2016[[paste0("t",tileX)]]$errMod$linBL$coefficients[1])/
+#   calErr$y2016[[paste0("t",tileX)]]$errMod$linBL$coefficients[2]
+# data.all$pineP <- (data.all$pineP - calErr$y2016[[paste0("t",tileX)]]$errMod$linPINE$coefficients[1])/
+#   calErr$y2016[[paste0("t",tileX)]]$errMod$linPINE$coefficients[2]
+# data.all$spruceP <- (data.all$spruceP - calErr$y2016[[paste0("t",tileX)]]$errMod$linSPRUCE$coefficients[1])/
+#   calErr$y2016[[paste0("t",tileX)]]$errMod$linSPRUCE$coefficients[2]
+data.all$ba2 <- (data.all$ba2 - calErr$y2019[[paste0("t",tileX)]]$errMod$linG$coefficients[1])/
+    calErr$y2019[[paste0("t",tileX)]]$errMod$linG$coefficients[2]
+data.all$dbh2 <- (data.all$dbh2 - calErr$y2019[[paste0("t",tileX)]]$errMod$linD$coefficients[1])/
+    calErr$y2019[[paste0("t",tileX)]]$errMod$linD$coefficients[2]
+data.all$v2 <- (data.all$v2 - calErr$y2019[[paste0("t",tileX)]]$errMod$linV$coefficients[1])/
+    calErr$y2019[[paste0("t",tileX)]]$errMod$linV$coefficients[2]
+data.all$h2 <- 10*((data.all$h2/10 - calErr$y2019[[paste0("t",tileX)]]$errMod$linH$coefficients[1])/
+                    calErr$y2019[[paste0("t",tileX)]]$errMod$linH$coefficients[2])
+# data.all$blp2 <- (data.all$blp2 - calErr$y2019[[paste0("t",tileX)]]$errMod$linBL$coefficients[1])/
+#   calErr$y2019[[paste0("t",tileX)]]$errMod$linBL$coefficients[2]
+# data.all$pineP2 <- (data.all$pineP2 - calErr$y2019[[paste0("t",tileX)]]$errMod$linPINE$coefficients[1])/
+#   calErr$y2019[[paste0("t",tileX)]]$errMod$linPINE$coefficients[2]
+# data.all$spruceP2 <- (data.all$spruceP2 - calErr$y2019[[paste0("t",tileX)]]$errMod$linSPRUCE$coefficients[1])/
+#   calErr$y2019[[paste0("t",tileX)]]$errMod$linSPRUCE$coefficients[2]
 
 
 ##filter data 
