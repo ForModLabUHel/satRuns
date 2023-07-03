@@ -54,6 +54,8 @@ for(tX in c("35VLJ","34VEQ","35WMN")){
   data2019[S2Tile==tX]$BL.est <- (data2019[S2Tile==tX]$BL.est - errData$y2019[[paste0("t",tX)]]$errMod$linBL$coefficients[1])/errData$y2019$t35VLJ$errMod$linBL$coefficients[2]
   data2019[S2Tile==tX]$V.est <- (data2019[S2Tile==tX]$V.est - errData$y2019[[paste0("t",tX)]]$errMod$linV$coefficients[1])/errData$y2019$t35VLJ$errMod$linV$coefficients[2]
 }
+calErr <- errData
+
 
 ###function to calculate residuals and MVN distribution parameters
 calError <- function(dataX){
@@ -78,6 +80,7 @@ calError <- function(dataX){
               residsSTda = resids,muSTda=muSTda,sigmaSTda=sigmaSTda,
               corMatSTda=corMatSTda))
 }
+errData <- list()
 errData$all <- calError(dataAll)
 errData$y2016$all <- calError(data2016)
 errData$y2019$all <- calError(data2019)
@@ -98,9 +101,9 @@ errData$t35WMN <- calError(dataAll[S2Tile == "35WMN"])
 
 
 if(CSCrun){
-  save(errData,file="/scratch/project_2000994/PREBASruns/assessCarbon/data/inputUncer.rdata") # in CSC
+  save(calErr, errData,file="/scratch/project_2000994/PREBASruns/assessCarbon/data/inputUncer.rdata") # in CSC
 }else{
-  save(errData,file="data/inputUncer.rdata")
+  save(calErr, errData,file="data/inputUncer.rdata")
 }
 
 
