@@ -809,7 +809,7 @@ prForUnc <- function(segIDx,nSample,yearUnc,tileX){
 errMod <- function(errX,yX,tX,dataX){
   dataX$H.mea <- dataX$H.mea/10
   dataX$H.est <- dataX$H.est/10
-  errX[[yX]][[tX]]$errMod$linG <- lm(dataX$G.est~ 0 + dataX$G.mea)
+  errX[[yX]][[tX]]$errMod$linG <- lm(dataX$G.est~dataX$G.mea)
   xSites <- intersect(which(dataX$G.est>0),which(dataX$G.mea>0))
   errX[[yX]][[tX]]$errMod$logG <- lm(log(dataX$G.est[xSites])~dataX$G.mea[xSites])
   
