@@ -20,9 +20,12 @@ pathX <- "C:/Users/minunno/Documents/research/assessCarbon/"
 # }
 namesTab <- c(paste0("B",c("m2019","s2019","DA2019")),
               paste0("H",c("m2019","s2019","DA2019")),
-              paste0("D",c("m2019","s2019","DA2019")))
-tabPrmse <- tabPbias <- matrix(NA,9,3,dimnames = list(namesTab,tiles))
-tabRmse <- tabBias <- matrix(NA,9,3,dimnames = list(namesTab,tiles))
+              paste0("D",c("m2019","s2019","DA2019")),
+              paste0("pPine",c("m2019","s2019","DA2019")),
+              paste0("pSpruce",c("m2019","s2019","DA2019")),
+              paste0("pDecid",c("m2019","s2019","DA2019")))
+tabPrmse <- tabPbias <- matrix(NA,18,3,dimnames = list(namesTab,tiles))
+tabRmse <- tabBias <- matrix(NA,18,3,dimnames = list(namesTab,tiles))
 
 p_rmse <- function(obs,sim) sqrt( mean( (obs-sim)^2) ) / ( max(obs)-min(obs) )*100
 p_bias <- function(obs,sim) mean( (obs-sim))/(max(obs)-min(obs) )*100
@@ -43,9 +46,15 @@ for(i in 1:length(tiles)){
   #####Figure 1 reseults 
   # load(paste0(pathX,"data2019res_",tileX,".rdata"))
   data2019res <- dataRes2019[Tile==tileX]
+  
   plot(data2019res$Bs2019,data2019res$G)
   points(data2019res$Bda2019,data2019res$G,col=2,pch=20)
   points(data2019res$Bm2019,data2019res$G,col=3,pch=20)
+  abline(0,1)
+  
+  plot(data2019res$perPs2019,data2019res$PINE)
+  points(data2019res$perPda2019,data2019res$PINE,col=2,pch=20)
+  points(data2019res$perPm2019,data2019res$PINE,col=3,pch=20)
   abline(0,1)
   
   nas <- intersect(which(!is.na(data2019res$Bm2019)),which(!is.na(data2019res$G)))
@@ -95,6 +104,55 @@ for(i in 1:length(tiles)){
   tabBias[7,i] <- bias(data2019res$D[nas],data2019res$Dm2019[nas])
   tabBias[8,i] <- bias(data2019res$D[nas],data2019res$Ds2019[nas])
   tabBias[9,i] <- bias(data2019res$D[nas],data2019res$Dda2019[nas])
+
+
+  nas <- intersect(which(!is.na(data2019res$perPm2019)),which(!is.na(data2019res$PINE)))
+  nas <- intersect(nas,which(!is.na(data2019res$perPs2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$perPda2019)))
+  tabPrmse[10,i] <- p_rmse(data2019res$PINE[nas],data2019res$perPm2019[nas])
+  tabPrmse[11,i] <- p_rmse(data2019res$PINE[nas],data2019res$perPs2019[nas])
+  tabPrmse[12,i] <- p_rmse(data2019res$PINE[nas],data2019res$perPda2019[nas])
+  tabPbias[10,i] <- p_bias(data2019res$PINE[nas],data2019res$perPm2019[nas])
+  tabPbias[11,i] <- p_bias(data2019res$PINE[nas],data2019res$perPs2019[nas])
+  tabPbias[12,i] <- p_bias(data2019res$PINE[nas],data2019res$perPda2019[nas])
+  tabRmse[10,i] <- rmse(data2019res$PINE[nas],data2019res$perPm2019[nas])
+  tabRmse[11,i] <- rmse(data2019res$PINE[nas],data2019res$perPs2019[nas])
+  tabRmse[12,i] <- rmse(data2019res$PINE[nas],data2019res$perPda2019[nas])
+  tabBias[10,i] <- bias(data2019res$PINE[nas],data2019res$perPm2019[nas])
+  tabBias[11,i] <- bias(data2019res$PINE[nas],data2019res$perPs2019[nas])
+  tabBias[12,i] <- bias(data2019res$PINE[nas],data2019res$perPda2019[nas])
+  
+  nas <- intersect(which(!is.na(data2019res$perSPm2019)),which(!is.na(data2019res$SPRUCE)))
+  nas <- intersect(nas,which(!is.na(data2019res$perSPs2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$perSPda2019)))
+  tabPrmse[13,i] <- p_rmse(data2019res$SPRUCE[nas],data2019res$perSPm2019[nas])
+  tabPrmse[14,i] <- p_rmse(data2019res$SPRUCE[nas],data2019res$perSPs2019[nas])
+  tabPrmse[15,i] <- p_rmse(data2019res$SPRUCE[nas],data2019res$perSPda2019[nas])
+  tabPbias[13,i] <- p_bias(data2019res$SPRUCE[nas],data2019res$perSPm2019[nas])
+  tabPbias[14,i] <- p_bias(data2019res$SPRUCE[nas],data2019res$perSPs2019[nas])
+  tabPbias[15,i] <- p_bias(data2019res$SPRUCE[nas],data2019res$perSPda2019[nas])
+  tabRmse[13,i] <- rmse(data2019res$SPRUCE[nas],data2019res$perSPm2019[nas])
+  tabRmse[14,i] <- rmse(data2019res$SPRUCE[nas],data2019res$perSPs2019[nas])
+  tabRmse[15,i] <- rmse(data2019res$SPRUCE[nas],data2019res$perSPda2019[nas])
+  tabBias[13,i] <- bias(data2019res$SPRUCE[nas],data2019res$perSPm2019[nas])
+  tabBias[14,i] <- bias(data2019res$SPRUCE[nas],data2019res$perSPs2019[nas])
+  tabBias[15,i] <- bias(data2019res$SPRUCE[nas],data2019res$perSPda2019[nas])
+
+  nas <- intersect(which(!is.na(data2019res$perBm2019)),which(!is.na(data2019res$BL)))
+  nas <- intersect(nas,which(!is.na(data2019res$perBs2019)))
+  nas <- intersect(nas,which(!is.na(data2019res$perBda2019)))
+  tabPrmse[16,i] <- p_rmse(data2019res$BL[nas],data2019res$perBm2019[nas])
+  tabPrmse[17,i] <- p_rmse(data2019res$BL[nas],data2019res$perBs2019[nas])
+  tabPrmse[18,i] <- p_rmse(data2019res$BL[nas],data2019res$perBda2019[nas])
+  tabPbias[16,i] <- p_bias(data2019res$BL[nas],data2019res$perBm2019[nas])
+  tabPbias[17,i] <- p_bias(data2019res$BL[nas],data2019res$perBs2019[nas])
+  tabPbias[18,i] <- p_bias(data2019res$BL[nas],data2019res$perBda2019[nas])
+  tabRmse[16,i] <- rmse(data2019res$BL[nas],data2019res$perBm2019[nas])
+  tabRmse[17,i] <- rmse(data2019res$BL[nas],data2019res$perBs2019[nas])
+  tabRmse[18,i] <- rmse(data2019res$BL[nas],data2019res$perBda2019[nas])
+  tabBias[16,i] <- bias(data2019res$BL[nas],data2019res$perBm2019[nas])
+  tabBias[17,i] <- bias(data2019res$BL[nas],data2019res$perBs2019[nas])
+  tabBias[18,i] <- bias(data2019res$BL[nas],data2019res$perBda2019[nas])
 }
 
 write.csv(t(rbind(tabPrmse,tabPbias)),file=paste0(pathX,"tab1_a.csv"))
@@ -232,6 +290,9 @@ MSEall[variable=="B"]$variable <- "G"
 #                aes(x=run, y=RMSE, fill=components)) +
 #   geom_bar(stat="identity")#, position = position_dodge(0.9)) +
 # p + facet_grid(rows = vars(variable))
+MSEall[components=="sdsd"]$components = "sd"
+MSEall$site <- factor(MSEall$site,levels = c("Tampere","Vaasa","Oulu"))
+
 MSE <- ggplot(MSEall[!components %in% "mse" &
                        !run %in% "est"], 
                aes(x=run, y=value, fill=components)) +
@@ -240,10 +301,9 @@ MSE <- ggplot(MSEall[!components %in% "mse" &
 #   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 # figRes1b <- RMSE + facet_grid(rows = vars(variable), cols = vars(Tile)) +
 #   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-MSEall$site <- factor(MSEall$site,levels = c("Tampere","Vaasa","Oulu"))
 
 figRes1c <- MSE + facet_grid(rows = vars(variable), cols = vars(site),scales = "free_y") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + ylab("MSE")
 figRes1c
 
 # resFig1 <- figRes1c#ggarrange(figRes1a,figRes1b)
@@ -303,7 +363,6 @@ figRes2.1 <- ggarrange(pSC1,pSC2,common.legend = T)
 
 ggsave(figRes2.1,filename = paste0(pathX,"/results/figures/resFig2.1.png"),
        device = "png",width = 7,height=7)
-
 
 
 
@@ -372,11 +431,11 @@ for(i in 1:length(tiles)){
     xlab(NULL)+ ylab(NULL)
   
     
-    figRes3a <- pFSV + facet_grid(rows = vars(site), cols = vars(titles),labeller = my_labeller) +
+    figRes3a <- pFSV + facet_grid(rows = vars(site), cols = vars(titles)) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     figRes3b <- pCover + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-    figRes3c <- pvFSV + facet_grid(rows = vars(site), cols = vars(titles),labeller = my_labeller_var) +
+    figRes3c <- pvFSV + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     figRes3d <- pvCover + facet_grid(rows = vars(site), cols = vars(titles)) +
       theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))

@@ -256,7 +256,7 @@ datAll$variable <- factor(datAll$variable,levels=c("G","D","H"))
 
 histX <- ggplot(datAll, aes(x=counts, color=offset)) +
   geom_histogram(fill="white", alpha=0.5, position="identity") +
-  ylab(NULL) + xlab("offset") +
+  ylab("frequency") + xlab("offset") +
   theme(axis.title.y=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank(),
