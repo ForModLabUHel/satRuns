@@ -37,13 +37,23 @@ errData <- errMod(errData,"y2019","t35VLJ",data2019[S2Tile == "35VLJ"])
 errData <- errMod(errData,"y2019","t34VEQ",data2019[S2Tile == "34VEQ"])
 errData <- errMod(errData,"y2019","t35WMN",data2019[S2Tile == "35WMN"])
 
-data2016[S2Tile=="35VLJ"]$G.est <- (data2016[S2Tile=="35VLJ"]$G.est - errData$y2016$t35VLJ$errMod$linG$coefficients[1])/errData$y2016$t35VLJ$errMod$linG$coefficients[2]
-data2016[S2Tile=="35VLJ"]$D.est <- (data2016[S2Tile=="35VLJ"]$D.est - errData$y2016$t35VLJ$errMod$linD$coefficients[1])/errData$y2016$t35VLJ$errMod$linD$coefficients[2]
-data2016[S2Tile=="35VLJ"]$H.est <- 10*((data2016[S2Tile=="35VLJ"]$H.est/10 - errData$y2016$t35VLJ$errMod$linH$coefficients[1])/errData$y2016$t35VLJ$errMod$linH$coefficients[2])
-data2016[S2Tile=="35VLJ"]$PINE.est <- (data2016[S2Tile=="35VLJ"]$PINE.est - errData$y2016$t35VLJ$errMod$linPINE$coefficients[1])/errData$y2016$t35VLJ$errMod$linPINE$coefficients[2]
-data2016[S2Tile=="35VLJ"]$SPRUCE.est <- (data2016[S2Tile=="35VLJ"]$SPRUCE.est - errData$y2016$t35VLJ$errMod$linSPRUCE$coefficients[1])/errData$y2016$t35VLJ$errMod$linSPRUCE$coefficients[2]
-data2016[S2Tile=="35VLJ"]$BL.est <- (data2016[S2Tile=="35VLJ"]$BL.est - errData$y2016$t35VLJ$errMod$linBL$coefficients[1])/errData$y2016$t35VLJ$errMod$linBL$coefficients[2]
-data2016[S2Tile=="35VLJ"]$V.est <- (data2016[S2Tile=="35VLJ"]$V.est - errData$y2016$t35VLJ$errMod$linV$coefficients[1])/errData$y2016$t35VLJ$errMod$linV$coefficients[2]
+for(tX in c("35VLJ","34VEQ","35WMN")){
+  data2016[S2Tile==tX]$G.est <- (data2016[S2Tile==tX]$G.est - errData$y2016[[paste0("t",tX)]]$errMod$linG$coefficients[1])/errData$y2016$t35VLJ$errMod$linG$coefficients[2]
+  data2016[S2Tile==tX]$D.est <- (data2016[S2Tile==tX]$D.est - errData$y2016[[paste0("t",tX)]]$errMod$linD$coefficients[1])/errData$y2016$t35VLJ$errMod$linD$coefficients[2]
+  data2016[S2Tile==tX]$H.est <- 10*((data2016[S2Tile==tX]$H.est/10 - errData$y2016[[paste0("t",tX)]]$errMod$linH$coefficients[1])/errData$y2016$t35VLJ$errMod$linH$coefficients[2])
+  data2016[S2Tile==tX]$PINE.est <- (data2016[S2Tile==tX]$PINE.est - errData$y2016[[paste0("t",tX)]]$errMod$linPINE$coefficients[1])/errData$y2016$t35VLJ$errMod$linPINE$coefficients[2]
+  data2016[S2Tile==tX]$SPRUCE.est <- (data2016[S2Tile==tX]$SPRUCE.est - errData$y2016[[paste0("t",tX)]]$errMod$linSPRUCE$coefficients[1])/errData$y2016$t35VLJ$errMod$linSPRUCE$coefficients[2]
+  data2016[S2Tile==tX]$BL.est <- (data2016[S2Tile==tX]$BL.est - errData$y2016[[paste0("t",tX)]]$errMod$linBL$coefficients[1])/errData$y2016$t35VLJ$errMod$linBL$coefficients[2]
+  data2016[S2Tile==tX]$V.est <- (data2016[S2Tile==tX]$V.est - errData$y2016[[paste0("t",tX)]]$errMod$linV$coefficients[1])/errData$y2016$t35VLJ$errMod$linV$coefficients[2]
+
+  data2019[S2Tile==tX]$G.est <- (data2019[S2Tile==tX]$G.est - errData$y2019[[paste0("t",tX)]]$errMod$linG$coefficients[1])/errData$y2019$t35VLJ$errMod$linG$coefficients[2]
+  data2019[S2Tile==tX]$D.est <- (data2019[S2Tile==tX]$D.est - errData$y2019[[paste0("t",tX)]]$errMod$linD$coefficients[1])/errData$y2019$t35VLJ$errMod$linD$coefficients[2]
+  data2019[S2Tile==tX]$H.est <- 10*((data2019[S2Tile==tX]$H.est/10 - errData$y2019[[paste0("t",tX)]]$errMod$linH$coefficients[1])/errData$y2019$t35VLJ$errMod$linH$coefficients[2])
+  data2019[S2Tile==tX]$PINE.est <- (data2019[S2Tile==tX]$PINE.est - errData$y2019[[paste0("t",tX)]]$errMod$linPINE$coefficients[1])/errData$y2019$t35VLJ$errMod$linPINE$coefficients[2]
+  data2019[S2Tile==tX]$SPRUCE.est <- (data2019[S2Tile==tX]$SPRUCE.est - errData$y2019[[paste0("t",tX)]]$errMod$linSPRUCE$coefficients[1])/errData$y2016$t35VLJ$errMod$linSPRUCE$coefficients[2]
+  data2019[S2Tile==tX]$BL.est <- (data2019[S2Tile==tX]$BL.est - errData$y2019[[paste0("t",tX)]]$errMod$linBL$coefficients[1])/errData$y2019$t35VLJ$errMod$linBL$coefficients[2]
+  data2019[S2Tile==tX]$V.est <- (data2019[S2Tile==tX]$V.est - errData$y2019[[paste0("t",tX)]]$errMod$linV$coefficients[1])/errData$y2019$t35VLJ$errMod$linV$coefficients[2]
+}
 
 ###function to calculate residuals and MVN distribution parameters
 calError <- function(dataX){
