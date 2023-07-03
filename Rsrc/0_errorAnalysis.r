@@ -78,7 +78,6 @@ calError <- function(dataX){
               residsSTda = resids,muSTda=muSTda,sigmaSTda=sigmaSTda,
               corMatSTda=corMatSTda))
 }
-errData <- list()
 errData$all <- calError(dataAll)
 errData$y2016$all <- calError(data2016)
 errData$y2019$all <- calError(data2019)
