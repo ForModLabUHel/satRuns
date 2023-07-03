@@ -91,6 +91,13 @@ setnames(data.all,c("x","y","ba","blp","dbh","v","h","pineP","spruceP",
                     "siteType1","siteType2","v2","ba2","dbh2","h2",
                     "pineP2","spruceP2","blp2", if (mgmtmask==T) "mgmtmask","climID"))
 
+####calibrated error
+# data.all$ba <- (data.all$ba - errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[1])/
+#   errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[2]
+# data.all$ba <- (data.all$ba - errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[1])/
+#   errData$y2016[[paste0("t",tileX)]]$errMod$linG$coefficients[2]
+
+
 ##filter data 
 if (mgmtmask==T) data.all <- data.all[mgmtmask == 0]
 data.all <- data.all[!ba %in% baNA]
@@ -127,6 +134,7 @@ data.all <- data.all[, siteType2 := siteType2 * siteTypeConv]
 data.all <- data.all[, pineP2 := pineP2 * pinePerConv]
 data.all <- data.all[, spruceP2 := spruceP2 * sprucePerConv]
 data.all <- data.all[, blp2 := blp2 * blPerConv]
+
 
 if(siteTypeX==year2){
   data.all[,siteType:=siteType2]  

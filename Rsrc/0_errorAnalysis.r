@@ -1,6 +1,7 @@
 library(devtools)
 # Run settings (if modifiedSettings is not set to TRUE in batch job script, default settings from Github will be used)
 source_url("https://raw.githubusercontent.com/ForModLabUHel/satRuns/master/Rsrc/settings.r")
+source_url("https://raw.githubusercontent.com/ForModLabUHel/satRuns/master/Rsrc/functions.r")
 if(file.exists("localSettings.r")) {source("localSettings.r")} # use settings in local directory if one exists
 
 
@@ -20,6 +21,19 @@ if(CSCrun){
 data2016$year <- 2016
 data2019$year <- 2019
 dataAll <- rbind(data2016,data2019)
+
+
+source_url("https://raw.githubusercontent.com/ForModLabUHel/satRuns/master/Rsrc/settings.r")
+
+###fit error models
+errData <- errMod(errData,"y2016","t35VLJ",data2016[S2Tile == "35VLJ"])
+# errData <- errMod(errData,"y2016","t35VNL",data2016[S2Tile == "35VNL"])
+errData <- errMod(errData,"y2016","t34VEQ",data2016[S2Tile == "34VEQ"])
+errData <- errMod(errData,"y2016","t35WMN",data2016[S2Tile == "35WMN"])
+errData <- errMod(errData,"y2019","t35VLJ",data2019[S2Tile == "35VLJ"])
+# errData <- errMod(errData,"y2019","t35VNL",data2019[S2Tile == "35VNL"])
+errData <- errMod(errData,"y2019","t34VEQ",data2019[S2Tile == "34VEQ"])
+errData <- errMod(errData,"y2019","t35WMN",data2019[S2Tile == "35WMN"])
 
 ###function to calculate residuals and MVN distribution parameters
 calError <- function(dataX){
@@ -62,15 +76,6 @@ errData$t35VNL <- calError(dataAll[S2Tile == "35VNL"])
 errData$t34VEQ <- calError(dataAll[S2Tile == "34VEQ"])
 errData$t35WMN <- calError(dataAll[S2Tile == "35WMN"])
 
-###fit error models
-errData <- errMod(errData,"y2016","t35VLJ",data2016)
-errData <- errMod(errData,"y2016","t35VNL",data2016)
-errData <- errMod(errData,"y2016","t34VEQ",data2016)
-errData <- errMod(errData,"y2016","t35WMN",data2016)
-errData <- errMod(errData,"y2019","t35VLJ",data2019)
-errData <- errMod(errData,"y2019","t35VNL",data2019)
-errData <- errMod(errData,"y2019","t34VEQ",data2019)
-errData <- errMod(errData,"y2019","t35WMN",data2019)
 
 
 if(CSCrun){
