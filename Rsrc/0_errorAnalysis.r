@@ -25,6 +25,8 @@ dataAll <- rbind(data2016,data2019)
 
 source_url("https://raw.githubusercontent.com/ForModLabUHel/satRuns/master/Rsrc/settings.r")
 
+errData <- list()
+
 ###fit error models
 errData <- errMod(errData,"y2016","t35VLJ",data2016[S2Tile == "35VLJ"])
 # errData <- errMod(errData,"y2016","t35VNL",data2016[S2Tile == "35VNL"])
@@ -34,6 +36,14 @@ errData <- errMod(errData,"y2019","t35VLJ",data2019[S2Tile == "35VLJ"])
 # errData <- errMod(errData,"y2019","t35VNL",data2019[S2Tile == "35VNL"])
 errData <- errMod(errData,"y2019","t34VEQ",data2019[S2Tile == "34VEQ"])
 errData <- errMod(errData,"y2019","t35WMN",data2019[S2Tile == "35WMN"])
+
+data2016[S2Tile=="35VLJ"]$G.est <- (data2016[S2Tile=="35VLJ"]$G.est - errData$y2016$t35VLJ$errMod$linG$coefficients[1])/errData$y2016$t35VLJ$errMod$linG$coefficients[2]
+data2016[S2Tile=="35VLJ"]$D.est <- (data2016[S2Tile=="35VLJ"]$D.est - errData$y2016$t35VLJ$errMod$linD$coefficients[1])/errData$y2016$t35VLJ$errMod$linD$coefficients[2]
+data2016[S2Tile=="35VLJ"]$H.est <- 10*((data2016[S2Tile=="35VLJ"]$H.est/10 - errData$y2016$t35VLJ$errMod$linH$coefficients[1])/errData$y2016$t35VLJ$errMod$linH$coefficients[2])
+data2016[S2Tile=="35VLJ"]$PINE.est <- (data2016[S2Tile=="35VLJ"]$PINE.est - errData$y2016$t35VLJ$errMod$linPINE$coefficients[1])/errData$y2016$t35VLJ$errMod$linPINE$coefficients[2]
+data2016[S2Tile=="35VLJ"]$SPRUCE.est <- (data2016[S2Tile=="35VLJ"]$SPRUCE.est - errData$y2016$t35VLJ$errMod$linSPRUCE$coefficients[1])/errData$y2016$t35VLJ$errMod$linSPRUCE$coefficients[2]
+data2016[S2Tile=="35VLJ"]$BL.est <- (data2016[S2Tile=="35VLJ"]$BL.est - errData$y2016$t35VLJ$errMod$linBL$coefficients[1])/errData$y2016$t35VLJ$errMod$linBL$coefficients[2]
+data2016[S2Tile=="35VLJ"]$V.est <- (data2016[S2Tile=="35VLJ"]$V.est - errData$y2016$t35VLJ$errMod$linV$coefficients[1])/errData$y2016$t35VLJ$errMod$linV$coefficients[2]
 
 ###function to calculate residuals and MVN distribution parameters
 calError <- function(dataX){

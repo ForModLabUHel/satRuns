@@ -821,6 +821,10 @@ errMod <- function(errX,yX,tX,dataX){
   xSites <- intersect(which(dataX$D.est>0),which(dataX$D.mea>0))
   errX[[yX]][[tX]]$errMod$logD <- lm(dataX$D.est[xSites]~log(dataX$D.mea[xSites]))
   
+  errX[[yX]][[tX]]$errMod$linV <- lm(dataX$V.est~dataX$V.mea)
+  xSites <- intersect(which(dataX$V.est>0),which(dataX$V.mea>0))
+  errX[[yX]][[tX]]$errMod$logV <- lm(dataX$V.est[xSites]~log(dataX$V.mea[xSites]))
+
   errX[[yX]][[tX]]$errMod$linH <- lm(dataX$H.est~dataX$H.mea)
   xSites <- intersect(which(dataX$H.est>0),which(dataX$H.mea>0))
   errX[[yX]][[tX]]$errMod$logH <- lm(dataX$H.est[xSites]~log(dataX$H.mea[xSites]))
