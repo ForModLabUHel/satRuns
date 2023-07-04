@@ -177,12 +177,19 @@ data.all[siteType2>5,siteType2:=5]
 data.all[,clCut:=0]
 data.all[ba==0,clCut:=1]
 
-###calculate tree density
-data.all[clCut==0,N:=ba/(pi*(dbh/200)^2)]
-
 ####check where H is below minimum initial height and replace
 smallH <- intersect(which(data.all$h < initH), which(data.all$clCut==0))
 data.all[smallH, h:=initH]
+####check where dbh is below minimum initial dbh and replace
+smallD <- intersect(which(data.all$dbh < initDBH), which(data.all$clCut==0))
+data.all[smallD, dbh:=initDBH]
+####check where dbh is below minimum initial dbh and replace
+smallB <- intersect(which(data.all$ba < initBA), which(data.all$clCut==0))
+data.all[smallB, ba:=initBA]
+
+###calculate tree density
+data.all[clCut==0,N:=ba/(pi*(dbh/200)^2)]
+
 
 ###check where density is too high and replace stand variables with initial conditions
 tooDens <- intersect(which(data.all$N> maxDens), which(data.all$clCut==0))
