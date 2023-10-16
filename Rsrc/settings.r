@@ -39,7 +39,7 @@ library(abind)
 
 ###check prebas version and install if needed
 if(!CSCrun){
-  devtools::install_github("ForModLabUHel/Rprebasso", ref=vPREBAS)
+  # devtools::install_github("ForModLabUHel/Rprebasso", ref=vPREBAS)
 }
 require(Rprebasso)
 
