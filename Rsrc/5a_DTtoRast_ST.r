@@ -36,14 +36,11 @@ for(i in 1:20){
   print(i)
 }
 
-for(outX in outXs){
   rastX <- rasterFromXYZ(stDA2019[,c("x","y","ST"),with=F])
   crs(rastX) <- crsX
-  rastName <- paste0("outRast/","init2016/STda2019.tif")
+  rastName <- "outRast/init2016/STda2019.tif"
   writeRaster(rastX,filename = rastName,overwrite=T)
-}
-
-
+  
 
 
 
